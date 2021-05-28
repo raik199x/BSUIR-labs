@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\программы на c\laba 6\laba 6\main.cpp(301): warning C4101: temp: неиспользованная локальная переменная
+d:\программы на c\laba 6\laba 6\main.cpp(690): warning C4129: e: неизвестная escape-последовательность
+  laba 6.vcxproj -> D:\программы на C\laba 6\Debug\laba 6.exe
