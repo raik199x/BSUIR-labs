@@ -1,4 +1,4 @@
-Labs of student ВМСиС 
+Laboratory work of student Krachkouski Alexander (BSUIR - KSIS - VMSIS) 
 
 First semester
   * [ОАиП](https://github.com/raik199x/student-life/tree/main/1%20semestr)
@@ -17,3 +17,7 @@ Third semester
  * (there wount be answers to exams because whole team "session 8+" get automate marks)
 
 Fourth semester
+ * [СПОВМ](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%A1%D0%9F%D0%9E%D0%92%D0%9C)
+ * [APK](https://github.com/raik199x/student-life/tree/main/4%20semestr/APK)
+ * [KPP](https://github.com/raik199x/student-life/tree/main/4%20semestr/KPP)
+ * [КПиЯП](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%9A%D0%9F%D0%B8%D0%AF%D0%9F)
