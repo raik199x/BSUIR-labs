@@ -32,6 +32,6 @@ Now we need to transfer file to mashine, use guide that told before.
 All should work now.
 
 
-Information about [bios14h](www.codenet.ru/progr/dos/int_0013.php) THX to [Semyon Matusevich](https://github.com/Xotab413)
+Information about [bios 14h](www.codenet.ru/progr/dos/int_0013.php) THX to [Semyon Matusevich](https://github.com/Xotab413)
 
 Information about [in\out](https://sysprog.ru/post/komandy-in-i-out) Also thx to [Semyon Matusevich](https://github.com/Xotab413)
