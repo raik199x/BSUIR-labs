@@ -1,7 +1,8 @@
-#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32) // эта байда написана для того чтобы я мог пользоваться scanf (вместо scanf_s)
-#define _CRT_SECURE_NO_WARNINGS                              // может и не нужно, но ко мне могли докапаться из-за этого
-#pragma warning(disable:4996)                                 // данную команду взял из интернета, т.к. оно на решение не влияет не считаю её запрещенной
-#endif                                                          // это тоже относится к *скопированому
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+#define _CRT_SECURE_NO_WARNINGS                             
+#pragma warning(disable:4996)                                
+#endif  
+
 #include <stdio.h>
 
 int main() {
