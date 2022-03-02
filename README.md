@@ -11,6 +11,7 @@ Second semester
 
 Third semester
  * [КПиЯП](https://github.com/raik199x/student-life/tree/main/3%20semestr) (now with conditions :D)
+ * [Course Project КПиЯП](https://github.com/raik199x/file-manager-for-linux)
  * [БЖЧ labs](https://mega.nz/folder/1Sx0jTSC#d8mv18nHmIBdc8TZgxroJg) (They were ~~stolen~~ downloaded from pc in the cabinet)
  * [ТЭЦ тр ч1](https://mega.nz/folder/ob5C3BqB#CW5uotscMA6lN9EvzIuUGA)
  * [ТЭЦ тр ч2](https://mega.nz/folder/tW5gTBTS#rQk3JlMYT-lDu15NcDpJyQ)
