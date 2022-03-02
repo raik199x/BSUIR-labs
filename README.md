@@ -1,4 +1,4 @@
-лабораторные работы студента ВМСИСа
+Labs of student ВМСиС 
 
 First semester
   * [ОАиП](https://github.com/raik199x/student-life/tree/main/1%20semestr)
