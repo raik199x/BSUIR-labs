@@ -16,8 +16,8 @@ If you can see message in first terminal, you've done all good
 
 ---
 
-Now we must configure virtual box
-Here is a little problem with dosbox, it dont want to communicate with bios 14h, only way (that i find) is to ~~delete dosbox~~ install virtual box
+Now we must configure virtual box.
+Here is a little problem with dosbox, it dont want to communicate with bios 14h, only way (that i find) is to ~~delete dosbox~~ install virtual box.
 Full guide how to install (and even mount disk, we will use it in future you can find [here](https://www.makeuseof.com/tag/run-ms-dos-games-apps-linux/))
 
 Then, after you install virtual box (and dos) go to:
@@ -28,8 +28,8 @@ Now ports are connected and ready to use
 
 ---
 
-Now we need to transfer file to mashine, use guide that told before
-All should work now
+Now we need to transfer file to mashine, use guide that told before.
+All should work now.
 
 
 Information about [bios 14h](www.codenet.ru/progr/dos/int_0013.php) THX to [Semyon Matusevich](https://github.com/Xotab413)
