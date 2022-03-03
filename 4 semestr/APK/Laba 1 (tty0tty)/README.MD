@@ -1,7 +1,7 @@
 This lab was written on linux mashine and it can be a bit difficult to make all things work, so here is a little guide
 
-First, we need to download an com emulator on linux
-Since i use debian [this](https://github.com/freemed/tty0tty) will perfectly fit me
+First, we need to download a com emulator on linux.
+Since i use debian (also should work on ubuntu) [this](https://github.com/freemed/tty0tty) will perfectly fits me
 
 > Great thanks to lcgamboa@yahoo.com
 
@@ -10,7 +10,7 @@ Since i use debian [this](https://github.com/freemed/tty0tty) will perfectly fit
 When all is done (and you can see all tnt) you can test them, for that:
   * open 2 terminals
   * in first write `cat /dev/tnt1`
-  * in second write `echo "hello wolrd" >> /dev/tnt0`
+  * in second write `echo "hello world" >> /dev/tnt0`
 
 If you can see message in first terminal, you've done all good
 
