@@ -28,7 +28,7 @@ Now ports are connected and ready to use
 
 ---
 
-Now we need to transfer file to mashine, use guide that told before.
+Now we need to transfer file to mashine, you can use guide that told before or use my [script](https://github.com/raik199x/BSUIR-labs/blob/main/4%20semestr/APK/Laba%201%20(tty0tty)/DosMakesGoBrrrrrrrrrrrrrr.sh) but you need to change folders path (i put comments so there wount be any troubles **i hope**).
 All should work now.
 
 
