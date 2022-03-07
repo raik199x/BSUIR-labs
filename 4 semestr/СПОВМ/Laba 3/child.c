@@ -18,4 +18,5 @@ int main(int argc, char *argv[]){
     count--;
     printf("Children: There are %d symbols in file!\n", count);
     fclose(f);
+    system("sleep 8");
 }
