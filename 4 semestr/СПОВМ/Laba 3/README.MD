@@ -13,3 +13,5 @@ Current program is set up to work with two terminals, to work normally you have 
 
 Normally, in parrent procces we write name of file and send it to child proces,
 parent start counting 5 sec while child proccess open file and count number of symbols in this file
+
+readme.txt - random file that we can use to count symbols
