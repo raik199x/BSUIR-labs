@@ -3,9 +3,9 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]){
-    printf("children will open path: %s\n", argv[1]);
+    printf("children will open path: %s\n", argv[0]);
     FILE *f;
-    if(!(f = fopen(argv[1],"r+"))){
+    if(!(f = fopen(argv[0],"r+"))){
         printf("Children: error to open file, exit\n");
         exit(-1);
     }
@@ -18,8 +18,4 @@ int main(int argc, char *argv[]){
     count--;
     printf("Children: There are %d symbols in file!\n", count);
     fclose(f);
-	system("sleep 8");
-    //system("/usr/bin/konsole");
-	//printf("Children: Opening terminal");
-    //system("terminator");
 }
