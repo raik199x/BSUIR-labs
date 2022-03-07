@@ -31,8 +31,8 @@ int main(){
     puts("");
     switch(pid = fork()){
         case -1: printf("Parrent couldnt create child, interrupt\n"); exit(-1);
-        case 0: if(execl("test.sh", send_to_child, NULL) == -1){
-                    printf("Parent: Error using execve\n");
+        case 0: if(execl("./child", send_to_child, NULL) == -1){
+                    printf("Parent: Error using execl\n");
                     exit(-1);
                 }
                 exit(3);
