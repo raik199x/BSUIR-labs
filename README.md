@@ -22,4 +22,4 @@ Fourth semester
  * [APK](https://github.com/raik199x/student-life/tree/main/4%20semestr/APK)
  * [KPP](https://github.com/raik199x/student-life/tree/main/4%20semestr/KPP)
  * [КПиЯП](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%9A%D0%9F%D0%B8%D0%AF%D0%9F)
- * [Course Project КПиЯП](404 not found)
+ * Course Project КПиЯП
