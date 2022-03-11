@@ -20,6 +20,6 @@ Third semester
 Fourth semester
  * [СПОВМ](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%A1%D0%9F%D0%9E%D0%92%D0%9C)
  * [APK](https://github.com/raik199x/student-life/tree/main/4%20semestr/APK)
- * [KPP](https://github.com/raik199x/student-life/tree/main/4%20semestr/KPP)
+ * [KPP](https://github.com/raik199x/student-life/tree/main/4%20semestr/KPP) - currently in private repository =)
  * [КПиЯП](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%9A%D0%9F%D0%B8%D0%AF%D0%9F)
  * Course Project КПиЯП
