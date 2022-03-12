@@ -69,8 +69,6 @@ start:
     enter_line_text:
         mov ah,1
         int 21h
-        cmp al,200
-        je out_loop_line_text
         cmp al,0Dh
         je out_loop_line_text
         mov MainLine[si],al
@@ -93,8 +91,6 @@ out_loop_line_text:
     enter_line_FindTo:
         mov ah,1
         int 21h
-        cmp al,200
-        je out_loop_line_FindTo
         cmp al, 0Dh
         je out_loop_line_FindTo
         cmp al, 32
@@ -120,8 +116,6 @@ out_loop_line_FindTo:
     enter_line_ReplaceTo:
         mov ah,1
         int 21h
-        cmp al,200
-        je out_loop_line_ReplaceTo
         cmp al, 0Dh
         je out_loop_line_ReplaceTo
         cmp al,32
