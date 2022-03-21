@@ -19,7 +19,7 @@ My solution was much easier ~~delete param c11~~ replace c11 with `--std=gnu11` 
 
 The task is not so understandable as at could be and a lot of questions coming from task to changing stat. My teacher said:
 
-> Condition is unclear, because we can thing that we should displat 4 possible combinations ({0,0} {1,0} {0,1} {1,1}), but if we check the lecture, we find out that Podenok means that program should show only two possible combinations {0,0} {1,1}. @Basak
+> Condition is unclear, because we can think that we should display 4 possible combinations ({0,0} {1,0} {0,1} {1,1}), but if we check the lecture, we find out that Podenok means that program should show only two possible combinations {0,0} {1,1}. @Basak
 
 So, in my program i change one variable per second, **it doesnt means that my version of program is correct**, if your teacher asks to do as Podenok says, rewrite child.c
 
