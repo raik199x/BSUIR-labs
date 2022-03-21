@@ -1,4 +1,4 @@
-!!CAUTION!!
+#!!CAUTION!!
 
 Usefull information will be covered here, so if you are looking for answers, you should read this readme
 
@@ -10,6 +10,7 @@ strange thing was found: if you compile programs using gcc with `--std=c11` para
 
 > In c11 developers get rid of all function that doesn have connection to C (including number p (3,14)), so you should connect deleted library using define @Podenok
 
+In current situation they ~~for some reason~~ throw out sigaction function.
 My solution was much easier ~~delete param c11~~ replace c11 with `--std=gnu11` and it will work properly
 
 ---
