@@ -169,7 +169,9 @@ Out_index_find_MainLine:
 ;----------------------------Finding index----------------------------
 
     cmp start_word_pos, -1  ;if such word dosent exitst
-    je Last_words           ;we simply leave probgram
+    jne SimpleContProg
+    jmp Last_words           ;we simply leave probgram
+SimpleContProg:
 
 ;++++++++++++++++Replacing+++++++++++++++++++++++++++++++
     ;if words is equal we can simply overwrite it
@@ -200,11 +202,17 @@ ReplaceTo_is_bigger:
     add ax,size_replace_to
     sub ax,size_find_to
     cmp ax,400
-    jge _END_OVERFLOW_
+    jl SimpleContReplacing
+    jmp _END_OVERFLOW_
+SimpleContReplacing:
     ;for that moment we will move our lie 'x' times so we can put our word using our function
     mov di,0
     mov cx,size_replace_to
     sub cx,size_find_to
+    mov ax, size_replace_to
+    cmp ax,198
+    jne move_mainline
+    inc cx
     move_mainline:
         mov si, start_word_pos
         add si, size_find_to
