@@ -96,11 +96,11 @@ out_loop_line_text:
         je enter_line_FindTo
         mov FindTo[si],al
         inc si
+        inc size_find_to
         cmp si,199
         je out_loop_line_FindTo
 
         inc cx
-        inc size_find_to
     loop enter_line_FindTo
 out_loop_line_FindTo:
 
@@ -121,9 +121,9 @@ out_loop_line_FindTo:
         je enter_line_ReplaceTo
         mov ReplaceTo[si],al
         inc si
+        inc size_replace_to
         cmp si,199
         je out_loop_line_ReplaceTo
-        inc size_replace_to
         inc cx
     loop enter_line_ReplaceTo
 out_loop_line_ReplaceTo:
@@ -210,9 +210,6 @@ SimpleContReplacing:
     mov cx,size_replace_to
     sub cx,size_find_to
     mov ax, size_replace_to
-    cmp ax,198
-    jne move_mainline
-    inc cx
     move_mainline:
         mov si, start_word_pos
         add si, size_find_to
