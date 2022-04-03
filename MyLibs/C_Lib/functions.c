@@ -105,3 +105,46 @@ void PressEnterContinue(){
     return;
 }
 
+// "123\0" -> 123, returns value
+int CharToInt(char *line){
+    int result = 0, runner = 0, neg_flag = 0;
+    while(line[runner] != '\0'){
+        if(line[runner] == '-'){
+            neg_flag = 1;
+            runner++;
+            continue;
+        }
+        result = result * 10 + line[runner]-48;
+        runner++;
+    }
+    if(neg_flag != 0)
+        result*=-1;
+    return result;
+}
+
+// 123 -> "123\0"
+char* IntToChar(int num){
+    char *line = (char*)malloc(sizeof(char)); int size = 0;
+    int rev_x = 0;
+    if(num < 0){
+        line[0] = '-';
+        line = (char*)realloc(line,2*sizeof(char));
+        size++; rev_x++;
+    }
+    while(num != 0){
+        char temp = num%10+48;
+        num/=10;
+        line[size] = temp;
+        size++;
+        line = (char*)realloc(line,(size+2)*sizeof(char));
+    }
+    line[size] = '\0';
+    size--;
+    for(;rev_x < size;rev_x++,size--){
+        char temp = line[rev_x];
+        line[rev_x] = line[size];
+        line[size] = temp;
+    }
+    return line;
+}
+
