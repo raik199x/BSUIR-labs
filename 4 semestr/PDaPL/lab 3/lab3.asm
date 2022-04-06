@@ -23,6 +23,7 @@
 
     ;function to write nums
     WriteNum proc
+        xor di,di
         xor ax,ax   ;
         xor bx,bx   ;   clearing
         xor cx,cx   ;
@@ -48,6 +49,22 @@
             jmp StartLoopEnter
             ContLoopEnter:
             ;checker 'enter' and letters-
+                ;additional check of overflow
+                cmp di,4
+                jne ContinueAddingNum
+                sub al,30h
+                cmp dx,1
+                je NegativeChecker
+                cmp al,7
+                jg CallBuffOverflow
+                add al,30h
+                jmp ContinueAddingNum
+                NegativeChecker:
+                cmp al,8
+                jg CallBuffOverflow
+                add al,30h
+                jmp ContinueAddingNum
+            ContinueAddingNum:
             xchg ax,cx  ;because mul command multiply number in ax, we swap two atributes
             push dx     ;remember number in dx (negative flag)
             imul bx     ;multiply by 10 (actually there is no need in imul, we could use just mul)
@@ -56,6 +73,7 @@
             xchg ax,cx  ;returning normal number in cx
             sub al,30h  
             add cx,ax   ;adding number to cx
+            inc di
             jmp StartLoopEnter
     OutFunWrite:
         cmp dx,1        ;if negative flag was set
@@ -118,7 +136,9 @@ start:
     int 21h
     mov dx, 32
     int 21h
+    push di
     call WriteNum
+    pop di
     mov Massiv[si],cx
     inc si
     inc si
