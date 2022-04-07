@@ -1,6 +1,5 @@
 In my opinion this is very hard lab,
- because you need to learn how [shared memory](https://www.youtube.com/watch?v=WgVSq-sgHOc)
-  + [semaphors](https://www.youtube.com/watch?v=ukM_zzrIeXs&t) works...
+ because you need to learn how [shared memory](https://www.youtube.com/watch?v=WgVSq-sgHOc) + [semaphors](https://www.youtube.com/watch?v=ukM_zzrIeXs&t) works...
 
 ---
 
@@ -27,4 +26,5 @@ To watch how producers running through shared memory open terminal and write `wa
 
  ---
 
+Thanks Mikhail for food :D
 Thanks to [Maksim](https://github.com/postavtezachet) for passing this road with me.
