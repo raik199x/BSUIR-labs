@@ -3,13 +3,13 @@
 .data
     __map__ db 29 dup('#')                                                                                              ;1
             db '#', 27 dup(32), '#'                                                                                     ;2
-            db '#',32,'#','#',32,32,'#',32,32,32,'#','#',32,3 dup('#'),32,'#','#',32,'#','#',32,32, 3 dup('#'),32,'#'   ;3
-            db '#',32,32,'#',32,32,'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,'#',32,'#',32,32,'#',32,32,32,'#'         ;4
+            db '#','G','#','#',32,32,'#',32,32,32,'#','#',32,3 dup('#'),32,'#','#',32,'#','#',32,32, 3 dup('#'),32,'#'  ;3
+            db '#','C',32,'#',32,32,'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,'#',32,'#',32,32,'#',32,32,32,'#'         ;4
             db '#',32,32,'#',32,32,'#',32,32,32,'#','#',32,32,'#',32,32,'#',32,32,32,'#',32,32,'#','#','#',32,'#'       ;5
             db '#','#',4 dup(32),'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,32,32,'#',32,32,'#',32,32,32,'#'            ;6
             db '#','#',4 dup(32),3 dup('#'),32,'#','#',32,32,'#',32,32,'#',32,32,32,'#',32,32,'#','#','#',32,'#'        ;7
             db '#',9 dup(32),'#',32,32,32,'#',32,32,'#',10 dup(32),'#'                                                  ;8
-            db '#',9 dup(32),'#',32,32,32,'#',32,32,32,'#',5 dup(32),'#','#',32,32,'#'                                  ;9
+            db '#',9 dup(32),'#',32,32,32,'#',32,32,'G','#',5 dup(32),'#','#',32,32,'#'                                 ;9
             db '#',32,32,32,'#','#',4 dup(32),'#',32,32,32,'#',6 dup(32),'#',32,32,'#',32,32,32,'#'                     ;10
             db '#',5 dup(32),'#',32,32,32,'#',32,32,32,'#',6 dup(32),'#',32,32,'#',32,32,32,'#'                         ;11
             db '#',32,32,'#',32,'#',13 dup(32),'#','#','#',32,32,'#','#','#',32,'#'                                     ;12
@@ -20,22 +20,23 @@
             db '#',13 dup(32),'#','#',32,32,'#',32,32,'#',32,'#',32,'#',32,32,'#'                                       ;17
             db '#',32,'#','#',32,32,3 dup('#'),32,3 dup('#'),6 dup(32),'#',32,'#',32,'#',32,'#','#',32,'#'              ;18
             db '#',32,'#','#','#',32,32,'#',32,32,'#',4 dup(32),'#','#',6 dup(32),'#',32,32,'#',32,'#'                  ;19
-            db '#',32,'#','#','#',32,32,'#',32,32,3 dup('#'),32,32,3 dup('#'),3 dup(32),4 dup('#'),32,'#',32,'#'       ;20
+            db '#',32,'#','#','#',32,32,'#',32,32,3 dup('#'),32,32,3 dup('#'),3 dup(32),4 dup('#'),32,'#',32,'#'        ;20
             db '#',32,'#','#','#',32,32,'#',32,32,'#',4 dup(32),'#','#',9 dup(32),'#',32,'#'                            ;21
             db '#',32,'#','#',32,32,3 dup('#'),32,'#','#','#',5 dup(32),'#',32,32,'#',32,'#','#',32,32,32,'#'           ;22
-            db '#','C',26 dup(32),'#'                                                                                   ;23
+            db '#',32,26 dup(32),'#'                                                                                   ;23
             db 29 dup('#')                                                                                              ;24
     pacman_pos dw ?
     apples db ?
     score  db 8
     logo db "Made by raik199x" ;length == 16
     word_score db "Score: " ;length == 7
-
+    loose_word db "You lost!",10,13,'$' ;length == 9
+    status_of_game db 0
 .code 
 ; 696 whole map
 ; whole screen 80x25
 ; 42 - apples
-; heart == apple
+; * == apple
 jmp start
 
     ClearScreen macro
@@ -82,16 +83,14 @@ InitializeMap proc
         mov es:di,word ptr 1Fh
             is_pacman:
         cmp bx,'C'
-        jne is_pacman_2
+        jne is_ghost
         mov es:di,word ptr 0Eh
         push si
         pop pacman_pos
-            is_pacman_2:
-        cmp bx,'O'
+            is_ghost:
+        cmp bx,'G'
         jne decided_color
-        push si
-        pop pacman_pos
-        mov es:di,word ptr 0EH
+        mov es:di,word ptr 4h
         decided_color: ;decided =)
         inc si
         inc di
@@ -127,6 +126,11 @@ UpdateMap proc
         check_if_space_update:
         cmp bx,32
         je decided_color_update
+        cmp bx,'G'
+        jne check_if_pacman_update
+        mov es:di,word ptr 4h
+        jmp decided_color_update
+        check_if_pacman_update:
         cmp bx,'C'
         jne decided_color_update
         mov es:di,word ptr 0Eh
@@ -135,7 +139,7 @@ UpdateMap proc
         jmp decided_color_update
         skip_hash:
         inc di
-        decided_color_update: ;decided =)
+        decided_color_update:
         inc si
         inc di
         inc ax
@@ -150,6 +154,12 @@ UpdateMap proc
 
 Check_access_point proc
     xor dx,dx
+    cmp bl,'G'
+    jne check_access_border
+    mov status_of_game,1
+    mov dx,1
+    jmp __out_function_check_access__
+    check_access_border:
     cmp bl,'#'
     jne bl_not_equal_border
     add dx,1
@@ -271,6 +281,14 @@ start:
     mov apples,0
     ;GAME STARTED
     RE_MAP:
+    ;++++++++++check if we lost
+    xor ax,ax
+    mov al,status_of_game
+    cmp al,1
+    jne check_game_satus_win
+    jmp __END__LOSE
+    ;---------check if we lost
+    check_game_satus_win:
     call PlaceNumScore
     ;mov cx,0
     ;mov dx,40000
@@ -297,7 +315,7 @@ start:
 
     cmp ah,1h   ;if esc == leave program
     jne cont_esc_not_pressed
-    jmp __END__
+    jmp __END__LOSE
     cont_esc_not_pressed:
     xor si,si
     ;+++++++++++++++++++++++CHECKING MOVEMENT+++++++++++++++++++++++++
@@ -368,8 +386,16 @@ start:
     ;-----------------------------CHECKING MOVEMENT-------------------------------
     jmp RE_MAP
 
-    __END__:
+    __END__LOSE:
     ClearScreen
+    mov al,status_of_game
+    cmp al,1
+    jne __END__
+    lea dx,loose_word
+    mov ah,9
+    int 21h
+
+    __END__:
     mov ax,4C00h
     int 21h
 end start
