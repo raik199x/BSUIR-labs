@@ -27,7 +27,7 @@
             db 29 dup('#')                                                                                              ;24
     pacman_pos dw ?
     apples db ?
-    score  db 0
+    score  db 8
     logo db "Made by raik199x" ;length == 16
     word_score db "Score: " ;length == 7
 
@@ -52,7 +52,7 @@ New_line_output proc
     ret
     New_line_output endp
 
-PrintMap proc
+InitializeMap proc
 
     push 0B800h ; code of vider driver
     pop es      ; setting codes
@@ -64,7 +64,10 @@ PrintMap proc
 
     start_line:
         mov bl,__map__[si]
+        cmp bl,'#'
+        je skipped
         mov es:di,bx
+        skipped:
         inc di
 
         ;decide which color to set
@@ -100,7 +103,50 @@ PrintMap proc
         continue_output_map:
     loop start_line
     ret
-    PrintMap endp
+    InitializeMap endp
+
+UpdateMap proc
+    xor si,si
+    xor di,di
+    xor ax,ax
+    mov cx,696
+
+    Updating:
+        mov bl,__map__[si]
+
+        cmp bl,'#'
+        je skip_hash
+
+        mov es:di,bx
+        inc di
+
+        ;decide which color to set
+        cmp bx,'*'
+        jne check_if_space_update
+        mov es:di,word ptr 32
+        check_if_space_update:
+        cmp bx,32
+        je decided_color_update
+        cmp bx,'C'
+        jne decided_color_update
+        mov es:di,word ptr 0Eh
+        push si
+        pop pacman_pos
+        jmp decided_color_update
+        skip_hash:
+        inc di
+        decided_color_update: ;decided =)
+        inc si
+        inc di
+        inc ax
+        cmp ax,29
+        jne continue_output_map_update
+        xor ax,ax
+        add di,102
+        continue_output_map_update:
+    loop Updating
+    ret
+    UpdateMap endp
 
 Check_access_point proc
     xor dx,dx
@@ -122,6 +168,7 @@ PlaceNumScore proc
     xor cx,cx
     mov di,256
     push ax
+    xor ax,ax
     mov al,score
     check_if_can_output_num_score:
     xor bx,bx
@@ -193,7 +240,7 @@ start:
     mov ax,DGROUP
     mov ds,ax
     ClearScreen
-    call PrintMap
+    call InitializeMap
 
     ;+++preparations++++++++
         ;drawing logo + score
@@ -238,11 +285,11 @@ start:
     call Random
     apples_are_set:
     ;--------place apple---------
-
+    call UpdateMap
     ;mov ah,1     ;функция проверки клавиатуры (ожидание нажатие на любую клавишу)
     ;int 16h
     ;jnz key_was_pressed
-    ;jmp Print_Map
+    ;jmp RE_MAP
     ;key_was_pressed:
     xor al,al 
     mov ah,00h  ;enter symbol
@@ -267,7 +314,7 @@ start:
     mov __map__[si],'C'
     mov si,pacman_pos
     mov __map__[si],32
-    jmp Print_Map
+    jmp RE_MAP
     ;----Move up true
 
     enterned_down:
@@ -283,7 +330,7 @@ start:
     mov __map__[si],'C'
     mov si,pacman_pos
     mov __map__[si],32
-    jmp Print_Map
+    jmp RE_MAP
     ;----Move down true
 
     enterned_left:
@@ -299,27 +346,26 @@ start:
     mov __map__[si],'C'
     mov si,pacman_pos
     mov __map__[si],32
-    jmp Print_Map
+    jmp RE_MAP
     ;----Move left
 
     enterned_right:
     cmp al,'d'
-    jne Print_Map
+    jne end_of_checkers
     mov si,pacman_pos
     add si,1
     mov bl,__map__[si]
     call Check_access_point
     cmp dx,1
-    jge Print_Map
+    jge end_of_checkers
     ;+++++Move right
     mov __map__[si],'C'
     mov si,pacman_pos
     mov __map__[si],32
-    jmp Print_Map
+    jmp RE_MAP
     ;-----Move right
+    end_of_checkers:
     ;-----------------------------CHECKING MOVEMENT-------------------------------
-    Print_Map:
-    call PrintMap
     jmp RE_MAP
 
     __END__:
