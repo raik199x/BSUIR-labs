@@ -9,7 +9,7 @@
             db '#','#',4 dup(32),'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,32,32,'#',32,32,'#',32,32,32,'#'            ;6
             db '#','#',4 dup(32),3 dup('#'),32,'#','#',32,32,'#',32,32,'#',32,32,32,'#',32,32,'#','#','#',32,'#'        ;7
             db '#',9 dup(32),'#',32,32,32,'#',32,32,'#',10 dup(32),'#'                                                  ;8
-            db '#',9 dup(32),'#',32,32,32,'#',32,32,'P','#',5 dup(32),'#','#',32,32,'#'                                 ;9
+            db '#',9 dup(32),'#',32,32,32,'#',32,32,32,'#',5 dup(32),'#','#',32,32,'#'                                 ;9
             db '#',32,32,32,'#','#',4 dup(32),'#',32,32,32,'#',6 dup(32),'#',32,32,'#',32,32,32,'#'                     ;10
             db '#',5 dup(32),'#',32,32,32,'#',32,32,32,'#',6 dup(32),'#',32,32,'#',32,32,32,'#'                         ;11
             db '#',32,32,'#',32,'#',13 dup(32),'#','#','#',32,32,'#','#','#',32,'#'                                     ;12
@@ -18,7 +18,7 @@
             db '#',32,32,'#',8 dup(32),4 dup('#'),32,32,32,5 dup('#'),32,'#','#',32,'#'                                 ;15
             db '#',32,'#',10 dup(32),4 dup('#'),6 dup(32),'#',32,'#',32,32,'#'                                          ;16
             db '#',13 dup(32),'#','#',32,32,'#',32,32,'#',32,'#',32,'#',32,32,'#'                                       ;17
-            db '#',32,'#','#',32,32,3 dup('#'),32,3 dup('#'),6 dup(32),'#',32,'#',32,'#',32,'#','#',32,'#'              ;18
+            db '#',32,'#','#',32,32,3 dup('#'),32,3 dup('#'),6 dup(32),'#','P','#',32,'#',32,'#','#',32,'#'              ;18
             db '#',32,'#','#','#',32,32,'#',32,32,'#',4 dup(32),'#','#',6 dup(32),'#',32,32,'#',32,'#'                  ;19
             db '#',32,'#','#','#',32,32,'#',32,32,3 dup('#'),32,32,3 dup('#'),3 dup(32),4 dup('#'),32,'#',32,'#'        ;20
             db '#',32,'#','#','#',32,32,'#',32,32,'#',4 dup(32),'#','#',9 dup(32),'#',32,'#'                            ;21
@@ -40,6 +40,7 @@
     TopMove_bot dw ?
     BotMove_bot dw ?
     RatingOfMOves dw 4 dup(?)
+    BotLogicQueue db 0
 .code 
 ; 696 whole map
 ; whole screen 80x25
@@ -180,10 +181,21 @@ UpdateMap proc
 BotLogic proc
     xor ax,ax
     xor si,si
-    xor cx,cx
     xor bx,bx
     xor dx,dx
+    repeat_logic:
+    mov cx,4
+    clear_rating_moves:
+    mov RatingOfMoves[si],ax
+    add si,2
+    loop clear_rating_moves
+    xor si,si
     
+    mov al,BotLogicQueue
+    inc al
+    mov BotLogicQueue,al
+    xor al,al
+
     mov TopMove_bot,0
     mov BotMove_bot,0
     mov RightMove_bot,0
@@ -191,7 +203,14 @@ BotLogic proc
 
     ;+++++++++++++++++Calculating which move make us closer to pacman (the closest move)
     mov ax,pacman_pos
+    mov bl,BotLogicQueue
+    cmp bl,1
+    jne For_bot_P
     mov bx,ghost_pos_g
+    jmp For_bot_g
+    For_bot_p:
+    mov bx,ghost_pos_P
+    For_bot_g:
     dec bx
     sub ax,bx
     cmp ax,0
@@ -283,7 +302,14 @@ BotLogic proc
     xor dx,dx
 
     ResultOfMoves:
+    mov cl,BotLogicQueue
+    cmp cl,1
+    jne ResultForP
     mov di,ghost_pos_G
+    jmp ResultForG
+    ResultForP:
+    mov di,ghost_pos_P
+    ResultForG:
     mov ax, RatingOfMoves[si]
     ;now we need to understand which move wins
     mov bx,RightMove_bot
@@ -318,8 +344,16 @@ BotLogic proc
     CheckingMoveBotBorders:
     add si,2
     mov bl,__map__[di]
+    mov cl,BotLogicQueue
+    cmp cl,1
+    jne DoNotStackPWithG
     cmp bl,'P'
     je ResultOfMoves
+    jmp DoNotStackGWithP
+    DoNotStackPWithG:
+    cmp bl,'G'
+    je ResultOfMoves
+    DoNotStackGWithP:
     cmp bl,'#'
     je ResultOfMoves
     cmp bl,'*'
@@ -328,18 +362,31 @@ BotLogic proc
     NotAnApple:
     cmp bl,'C'
     jne PacmanIsAlive
-    mov status_of_game,1
+    jmp initializeLoose
     PacmanIsAlive:
+    cmp cl,1
+    jne SetPosP
     mov __map__[di],'G'
     mov di,ghost_pos_G
+    mov __map__[di],32
+    jmp end_of_bot_logic
+    SetPosP:
+    mov __map__[di],'P'
+    mov di,ghost_pos_P
     mov __map__[di],32
     jmp end_of_bot_logic
 
     initializeLoose:
     mov status_of_game,1
+    jmp end_of_bot_logic
 
     end_of_bot_logic:
-
+    mov al,BotLogicQueue
+    cmp al,1
+    jne __finally_leave_this
+    jmp repeat_logic
+    __finally_leave_this:
+    mov BotLogicQueue, 0
     ret
     BotLogic endp
 Check_access_point proc
