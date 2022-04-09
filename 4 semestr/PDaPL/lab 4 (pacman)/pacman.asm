@@ -3,13 +3,13 @@
 .data
     __map__ db 29 dup('#')                                                                                              ;1
             db '#', 27 dup(32), '#'                                                                                     ;2
-            db '#','G','#','#',32,32,'#',32,32,32,'#','#',32,3 dup('#'),32,'#','#',32,'#','#',32,32, 3 dup('#'),32,'#'  ;3
-            db '#','C',32,'#',32,32,'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,'#',32,'#',32,32,'#',32,32,32,'#'         ;4
+            db '#','G','#','#','C',32,'#',32,32,32,'#','#',32,3 dup('#'),32,'#','#',32,'#','#',32,32, 3 dup('#'),32,'#'  ;3
+            db '#',32,32,'#',32,32,'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,'#',32,'#',32,32,'#',32,32,32,'#'         ;4
             db '#',32,32,'#',32,32,'#',32,32,32,'#','#',32,32,'#',32,32,'#',32,32,32,'#',32,32,'#','#','#',32,'#'       ;5
             db '#','#',4 dup(32),'#',32,32,32,'#',32,32,32,'#',32,32,'#',32,32,32,'#',32,32,'#',32,32,32,'#'            ;6
             db '#','#',4 dup(32),3 dup('#'),32,'#','#',32,32,'#',32,32,'#',32,32,32,'#',32,32,'#','#','#',32,'#'        ;7
             db '#',9 dup(32),'#',32,32,32,'#',32,32,'#',10 dup(32),'#'                                                  ;8
-            db '#',9 dup(32),'#',32,32,32,'#',32,32,'G','#',5 dup(32),'#','#',32,32,'#'                                 ;9
+            db '#',9 dup(32),'#',32,32,32,'#',32,32,'P','#',5 dup(32),'#','#',32,32,'#'                                 ;9
             db '#',32,32,32,'#','#',4 dup(32),'#',32,32,32,'#',6 dup(32),'#',32,32,'#',32,32,32,'#'                     ;10
             db '#',5 dup(32),'#',32,32,32,'#',32,32,32,'#',6 dup(32),'#',32,32,'#',32,32,32,'#'                         ;11
             db '#',32,32,'#',32,'#',13 dup(32),'#','#','#',32,32,'#','#','#',32,'#'                                     ;12
@@ -27,11 +27,19 @@
             db 29 dup('#')                                                                                              ;24
     pacman_pos dw ?
     apples db ?
-    score  db 8
+    score  db 0
     logo db "Made by raik199x" ;length == 16
     word_score db "Score: " ;length == 7
     loose_word db "You lost!",10,13,'$' ;length == 9
     status_of_game db 0
+    ghost_pos_G dw ?
+    ghost_pos_P dw ?
+    ;for bot move logic
+    LeftMove_bot dw ?
+    RightMove_bot dw ?
+    TopMove_bot dw ?
+    BotMove_bot dw ?
+    RatingOfMOves dw 4 dup(?)
 .code 
 ; 696 whole map
 ; whole screen 80x25
@@ -89,8 +97,16 @@ InitializeMap proc
         pop pacman_pos
             is_ghost:
         cmp bx,'G'
+        jne is_ghost2
+        mov es:di,word ptr 4h
+        push si
+        pop ghost_pos_G
+            is_ghost2:
+        cmp bx,'P'
         jne decided_color
         mov es:di,word ptr 4h
+        push si
+        pop ghost_pos_P
         decided_color: ;decided =)
         inc si
         inc di
@@ -127,8 +143,17 @@ UpdateMap proc
         cmp bx,32
         je decided_color_update
         cmp bx,'G'
+        jne check_if_ghost2_update
+        mov es:di,word ptr 4h
+        push si
+        pop ghost_pos_G
+        jmp decided_color_update
+        check_if_ghost2_update:
+        cmp bx,'P'
         jne check_if_pacman_update
         mov es:di,word ptr 4h
+        push si
+        pop ghost_pos_P
         jmp decided_color_update
         check_if_pacman_update:
         cmp bx,'C'
@@ -152,9 +177,163 @@ UpdateMap proc
     ret
     UpdateMap endp
 
+BotLogic proc
+    xor ax,ax
+    xor si,si
+    xor cx,cx
+    xor bx,bx
+    xor dx,dx
+    
+    mov TopMove_bot,0
+    mov BotMove_bot,0
+    mov RightMove_bot,0
+    mov LeftMove_bot,0
+
+    ;+++++++++++++++++Calculating which move make us closer to pacman (the closest move)
+    mov ax,pacman_pos
+    mov bx,ghost_pos_g
+    dec bx
+    sub ax,bx
+    mov LeftMove_bot,ax
+
+    mov ax,pacman_pos
+    add bx,2
+    sub ax,bx
+    mov RightMove_bot,ax
+    
+    mov ax,pacman_pos
+    add bx,28
+    sub ax,bx
+    mov BotMove_bot,ax
+
+    mov ax,pacman_pos
+    add bx,58
+    sub ax,bx
+    mov TopMove_bot,ax
+    ;-------------------END CALCULATING
+
+    mov ax,LeftMove_bot
+    mov bx,RightMove_bot
+    mov dx,TopMove_bot
+    mov cx,BotMove_bot
+
+    cmp ax,bx
+    jg RightWinLeft
+    jmp DecideTopOrBot
+
+    RightWinLeft:
+    mov ax,bx
+    mov bx,LeftMove_bot
+
+    DecideTopOrBot:
+    cmp dx,cx
+    jg BotWinTop
+    jmp DecideTop1
+    BotWinTop:
+    mov dx,cx
+    mov cx,TopMove_bot
+
+    DecideTop1:
+    cmp ax,dx
+    jl AxWinDx
+    jg DxWinAx
+
+    AxWinDx:
+    mov RatingOfMoves[si],ax
+    add si,2
+    mov RatingOfMoves[si],dx
+    add si,2
+    jmp DecideTop3
+    DxWinAx:
+    mov RatingOfMoves[si],dx
+    add si,2
+    mov RatingOfMoves[si],ax
+    add si,2
+
+    DecideTop3:
+    cmp bx,cx
+    jl BxWinCx
+    jg CxWinBx
+
+    BxWinCx:
+    mov RatingOfMoves[si],bx
+    add si,2
+    mov RatingOfMoves[si],cx
+    xor si,si
+    xor dx,dx
+    jmp ResultOfMoves
+    CxWinBx:
+    mov RatingOfMoves[si],cx
+    add si,2
+    mov RatingOfMoves[si],bx
+    xor si,si
+    xor dx,dx
+
+    ResultOfMoves:
+    mov di,ghost_pos_G
+    mov ax, RatingOfMoves[si]
+    ;now we need to understand which move wins
+    mov bx,RightMove_bot
+    cmp ax,bx
+    je BotMovesRight
+    mov bx,LeftMove_bot
+    cmp ax,bx
+    je BotMovesLeft
+    mov bx,TopMove_bot
+    cmp ax,bx
+    je BotMovesTop
+    mov bx,BotMove_bot
+    cmp ax,bx
+    je BotMovesBot
+
+    BotMovesRight:
+    inc di
+    jmp CheckingMoveBotBorders
+
+    BotMovesLeft:
+    dec di
+    jmp CheckingMoveBotBorders
+
+    BotMovesTop:
+    sub di,29
+    jmp CheckingMoveBotBorders
+
+    BotMovesBot:
+    add di,29
+    jmp CheckingMoveBotBorders
+
+    CheckingMoveBotBorders:
+    add si,2
+    mov bl,__map__[di]
+    cmp bl,'P'
+    je ResultOfMoves
+    cmp bl,'#'
+    je ResultOfMoves
+    cmp bl,'*'
+    jne NotAnApple
+    mov apples,0
+    NotAnApple:
+    mov __map__[di],'G'
+    mov di,ghost_pos_G
+    mov __map__[di],32
+    jmp end_of_bot_logic
+
+    initializeLoose:
+    mov status_of_game,1
+
+    end_of_bot_logic:
+
+    ret
+    BotLogic endp
 Check_access_point proc
     xor dx,dx
     cmp bl,'G'
+    jne check_if_P_ghost_access
+    mov status_of_game,1
+    mov dx,1
+    jmp __out_function_check_access__
+    check_if_P_ghost_access:
+    cmp bl,'P'
     jne check_access_border
     mov status_of_game,1
     mov dx,1
@@ -235,6 +414,10 @@ Random proc
     je start_random
     cmp bl,'C'
     je start_random
+    cmp bl,'G'
+    je start_random
+    cmp bl,'P'
+    je start_random
 
     ;happy end
     mov bl,'*'
@@ -304,6 +487,12 @@ start:
     apples_are_set:
     ;--------place apple---------
     call UpdateMap
+    call BotLogic
+    mov bl,status_of_game
+    cmp bl,1
+    jne game_is_not_ended
+    jmp __END__LOSE
+    game_is_not_ended:
     ;mov ah,1     ;функция проверки клавиатуры (ожидание нажатие на любую клавишу)
     ;int 16h
     ;jnz key_was_pressed
