@@ -4,9 +4,9 @@ Marks:
 
   Lab 2: 7/10
 
-  Lab 3: to_check
+  Lab 3: 7/10
 
-  Lab 4: todo
+  Lab 4: 7/10
 
   Lab 5: todo
 
