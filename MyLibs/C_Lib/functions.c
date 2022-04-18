@@ -4,7 +4,7 @@
 #include <string.h>
 #include <malloc.h>
 
-//returns pointer to a new writte line
+//returns pointer to a new written line
 char* EnterLineReturn(){
     char *line;
     int line_size = 0, letter_num = 0; char letter;

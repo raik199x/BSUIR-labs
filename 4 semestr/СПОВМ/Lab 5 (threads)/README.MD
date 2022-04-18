@@ -9,3 +9,8 @@ check time that it takes to make it with threads and without threads and show th
 
 I'm not genius, i dont know image proccessing on c, so very thanks to [this repository](https://github.com/abhijitnathwani/image-processing)
 
+Also there is a fun fact with time: sometimes threads can be slower than the part of code without them
+
+---
+
+Usefull [video about threads](https://www.youtube.com/watch?v=d9s_d28yJq0)
