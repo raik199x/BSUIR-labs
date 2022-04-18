@@ -19,7 +19,7 @@ Third semester
 
 Fourth semester
  * [Computer System Software](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%A1%D0%9F%D0%9E%D0%92%D0%9C)
- * [Architect of Personal Computer](https://github.com/raik199x/student-life/tree/main/4%20semestr/APK)
+ * [Personal Computer Architect](https://github.com/raik199x/student-life/tree/main/4%20semestr/APK)
  * [Cross-Platforming Programming](https://github.com/raik199x/JavaKPP) - currently in private repository =)
  * [CPPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
  * [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
