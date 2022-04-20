@@ -11,7 +11,7 @@
 #include <sys/wait.h>
 
 #include "circle.h"
-#include "../../../MyLibs/C_Lib/functions.h"
+#include "old_functions/functions.h"
 
 
 //creates new array of pids that larger by one than old and returns it

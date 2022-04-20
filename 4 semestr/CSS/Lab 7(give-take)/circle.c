@@ -1,6 +1,6 @@
 #include "circle.h"
 #include <malloc.h>
-#include "../../../MyLibs/C_Lib/functions.h"
+#include "old_functions/functions.h"
 
 void AppendCircle(struct Circle **to_append){
     struct Circle *SetRound;

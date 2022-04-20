@@ -28,7 +28,7 @@ int* UpdatePidsIncrease(int **old_pids, int count){
     return new_pids;
 }
 
-//creates new arrey of pids that lower by one than old, kills the newest pid and returns array
+//creates new array of pids that lower by one than old, kills the newest pid and returns array
 int* UpdatePidsDecrease(int **old_pids, int count){
     int* new_pids, temp;
     new_pids = (int*)malloc(count*sizeof(int));
@@ -78,7 +78,7 @@ int main(void){
     int *pids, count = 0, temp;
     pids = (int*)malloc(sizeof(int));
 
-    //reimplemanting signals
+    //reimplemented signals
     struct sigaction mysig;
     struct sigaction NoKillUsr;
     mysig.sa_handler = sig_MyAlarm;
