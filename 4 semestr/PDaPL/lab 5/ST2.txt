@@ -1,10 +1,6 @@
 a
-a
 b
-aaa
-Bad
-Bad
-b
+aa
 b
 b
 a

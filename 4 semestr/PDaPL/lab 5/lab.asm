@@ -2,6 +2,7 @@
 .stack 100h
 .data
     EnteringAcceotSymbolsMessage db 10,13,"enter symbols to accept: ",'$'
+    SymbolWriteError db "Symbol wasnt written",10,13,'$'
 
     OutputFileName db "output.txt",0
     buffer db 2 dup('$')
@@ -102,7 +103,7 @@ InputThisLine proc
     mov al,0
     int 21h
 
-    ;now we need to find place where our line is strting
+    ;now we need to find place where our line is starting
     mov dx,FileLinesPassed
     cmp dx,0                ;if there is no need to run again through file
     je writting_data        ;just jump into writting
@@ -115,6 +116,9 @@ InputThisLine proc
     pop  dx         ;retreaving data for dx
     mov al,buffer[0] ;taking readed symbol
     cmp al,0Ah      ; if it is an \n
+    jne is_it_another_enter_input
+    is_it_another_enter_input:
+    cmp al,0Dh      ;another variation of enter
     jne this_is_not_end_of_line
     dec dx          ;(if enter) one lees line to run
     this_is_not_end_of_line:
@@ -128,6 +132,10 @@ InputThisLine proc
     mov ah,3fh                  ;setting mode for reading
     int 21h
 
+    ;;debug info
+    mov ah,buffer[0]
+    ;;end debug info
+
     mov bx,FileDescriptorOutput ;placing working descriptor output file
     mov ah,40h                  ;setting write mode
     mov cx,1                    ;write one symbol
@@ -136,6 +144,8 @@ InputThisLine proc
     mov al,buffer[0]            ;now we need to check what exactly we wrote
     cmp al,0Ah                  ;if its enter
     je end_writting             ;we leave funtion
+    cmp al,0Dh                  ;another variation of enter
+    je end_writting             ;another leave
     jmp writting_data           ;else continue
 
     end_writting:
@@ -143,6 +153,7 @@ InputThisLine proc
     pop cx
     pop bx
     pop ax
+    mov bx,FileDescriptorInput
     ret
     InputThisLine endp
 
@@ -233,7 +244,7 @@ start:
     int 21h
     jc __Error_open_file__
     mov ah,3Dh
-    mov al,00h
+    mov al,01h
     int 21h
     jc __Error_open_file__
     mov FileDescriptorOutput,ax
@@ -260,7 +271,10 @@ start:
     xor ax,ax
     mov ah,buffer[0]            ;checking symbol
     cmp ah,0Ah                  ;if its \n
-    jne Calling_checker_letter  ;(if not enter) check what letter we read
+    jne another_varitation_enter_checker_main  ;(if not enter) check another variation
+    another_varitation_enter_checker_main:
+    cmp ah,0Dh                  ;another variation of enter
+    jne Calling_checker_letter
     call EndOfLine              ;(if enter) we check if all letter were used
     cmp al,0                    ;(result from function EndOfLine)
     jne line_is_not_accepted    ;if its not eqaul to 0, means not all letters where used
