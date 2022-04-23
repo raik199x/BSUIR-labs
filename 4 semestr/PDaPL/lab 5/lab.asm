@@ -1,9 +1,9 @@
 .model small
 .stack 100h
 .data
-    OutputFileName db "output.txt",0
-    ;CreatedFile db "File was created",10,13,'$'
+    EnteringAcceotSymbolsMessage db 10,13,"enter symbols to accept: ",'$'
 
+    OutputFileName db "output.txt",0
     buffer db 2 dup('$')
     AcceptedSymbols db 200 dup('$')
     IsAcceptedSymbols db 200 dup('$')
@@ -70,10 +70,13 @@ CheckCommandLine proc
 
 EnterAcceptSymbols proc
     xor si,si
-    Enter_cont:
-    mov ah,02h
+    mov ah,9
+    lea dx,EnteringAcceotSymbolsMessage
     int 21h
-    cmp ah,0Dh
+    Enter_cont:
+    mov ah,01h
+    int 21h
+    cmp al,0Dh
     je Enter_exit
     mov AcceptedSymbols[si],al
     mov IsAcceptedSymbols[si],0
@@ -100,23 +103,27 @@ InputThisLine proc
     int 21h
 
     ;now we need to find place where our line is strting
-    mov dx,FileLinePassed
+    mov dx,FileLinesPassed
+    cmp dx,0                ;if there is no need to run again through file
+    je writting_data        ;just jump into writting
     running:
     mov cx,1        ;reading 1 symbol form file
     mov ah,3fh      ;mode for reading
+    push dx         ;remember data in dx
     lea dx,buffer
     int 21h
+    pop  dx         ;retreaving data for dx
     mov al,buffer[0] ;taking readed symbol
-    cmp al,0Dh      ; if it is an enter
+    cmp al,0Ah      ; if it is an \n
     jne this_is_not_end_of_line
     dec dx          ;(if enter) one lees line to run
     this_is_not_end_of_line:
     cmp dx,0        ;check if we already runned all our line
     jne running     ;if not, continue running
 
-    lea dx,buffer   ;we will alwasy save symbol in buffer[0]
     ;at that moment we must write our needed lien, for that
     writting_data:
+    lea dx,buffer   ;we will alwasy save symbol in buffer[0]
     mov bx,FileDescriptorInput  ;placing working descriptor input file
     mov ah,3fh                  ;setting mode for reading
     int 21h
@@ -127,7 +134,7 @@ InputThisLine proc
     int 21h
 
     mov al,buffer[0]            ;now we need to check what exactly we wrote
-    cmp al,0Dh                  ;if its enter
+    cmp al,0Ah                  ;if its enter
     je end_writting             ;we leave funtion
     jmp writting_data           ;else continue
 
@@ -208,21 +215,25 @@ start:
     mov ax,DGROUP
     mov ds,ax
 
-    call CheckCommandLine
-    cmp ah,1
-    jne ArgumentsParsed
-    mov ah,9
-    lea dx,cmd_Error_NoArgument
+    call CheckCommandLine       ;parsing arguments of command line
+    cmp ah,1                    ;(result) if it failed (==1)
+    jne ArgumentsParsed         ;(if not failed) skip to main program
+    mov ah,9                    ;set mode output
+    lea dx,cmd_Error_NoArgument ;set message output
     int 21h
-    jmp __END__
+    jmp __END__                 ;(if failed) end program
 
     ArgumentsParsed:
-    call EnterAcceptSymbols
+    call EnterAcceptSymbols     ;entering symbols that we need to accept
 
     ;creating+open output file
-    mov ah,5Bh
+    mov ah,3ch
     mov cx,7
     lea dx,OutputFileName
+    int 21h
+    jc __Error_open_file__
+    mov ah,3Dh
+    mov al,00h
     int 21h
     jc __Error_open_file__
     mov FileDescriptorOutput,ax
@@ -234,14 +245,12 @@ start:
     int 21h
     jc __Error_open_file__
     mov FileDescriptorInput,ax
-
     mov bx,ax ;setting input file as active
-    mov di,01
 
-    reading_Data:
-    mov cx,1
+    reading_Data:   ;Start reading symbols
+    mov cx,1        ;read one symbol
     mov ah,3fh      ;mode for reading
-    lea dx,buffer
+    lea dx,buffer   ;symbol will be stored in buffer[0]
     int 21h
     jc Error_files_message
     ;
@@ -249,30 +258,28 @@ start:
     jcxz close_file ;to change in future
 
     xor ax,ax
-    mov ah,buffer[0]
-    cmp ah,0Dh
-    jne Calling_checker_letter
-    call EndOfLine
-    cmp ah,0
-    jne line_is_not_accepted
+    mov ah,buffer[0]            ;checking symbol
+    cmp ah,0Ah                  ;if its \n
+    jne Calling_checker_letter  ;(if not enter) check what letter we read
+    call EndOfLine              ;(if enter) we check if all letter were used
+    cmp al,0                    ;(result from function EndOfLine)
+    jne line_is_not_accepted    ;if its not eqaul to 0, means not all letters where used
     ;if we need this line
-    call InputThisLine
-    call RestoreLetters
-    jmp reading_Data
+    call InputThisLine          ;(if all letters where used) We run function to write line
+    call RestoreLetters         ;set to 0 written symbols
+    mov ax,FileLinesPassed      ;*also increasing
+    inc ax                      ;*number
+    mov FileLinesPassed,ax      ;*of passed lines
+    jmp reading_Data            ;start again
     line_is_not_accepted:
-    call RestoreLetters ;we clear accept bits
-    mov ax,FileLinePassed   ;*increasing
+    call RestoreLetters     ;we clear accept bits
+    mov ax,FileLinesPassed   ;*increasing
     inc ax                  ;*number
-    mov FileLinePasse,ax    ;*of passe line
+    mov FileLinesPassed,ax    ;*of passed lines
     jmp reading_Data        ;and continue to read data (ofc if can)
     Calling_checker_letter:
-    call CheckLetter
+    call CheckLetters
 
-    mov ah,40h
-    xchg bx,di
-    int 21h
-    xchg di,bx
-    jc close_file
     jmp reading_Data
 
 close_file:
