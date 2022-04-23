@@ -115,20 +115,23 @@ InputThisLine proc
     int 21h
     pop  dx         ;retreaving data for dx
     mov al,buffer[0] ;taking readed symbol
-    cmp al,0Ah      ; if it is an \n
-    jne is_it_another_enter_input
-    is_it_another_enter_input:
     cmp al,0Dh      ;another variation of enter
     jne this_is_not_end_of_line
+    mov cx,1        ;*
+    mov ah,3fh      ;*
+    push dx         ;*
+    lea dx,buffer   ;*
+    int 21h         ;*skipping 0Ah symbol
+    pop dx
     dec dx          ;(if enter) one lees line to run
     this_is_not_end_of_line:
     cmp dx,0        ;check if we already runned all our line
     jne running     ;if not, continue running
-
     ;at that moment we must write our needed lien, for that
     writting_data:
     lea dx,buffer   ;we will alwasy save symbol in buffer[0]
     mov bx,FileDescriptorInput  ;placing working descriptor input file
+    mov cx,1
     mov ah,3fh                  ;setting mode for reading
     int 21h
 
@@ -142,9 +145,7 @@ InputThisLine proc
     int 21h
 
     mov al,buffer[0]            ;now we need to check what exactly we wrote
-    cmp al,0Ah                  ;if its enter
-    je end_writting             ;we leave funtion
-    cmp al,0Dh                  ;another variation of enter
+    cmp al,0Ah                  ;another variation of enter
     je end_writting             ;another leave
     jmp writting_data           ;else continue
 
@@ -185,11 +186,14 @@ EndOfLine proc
     mov ah,IsAcceptedSymbols[si]
     cmp ah,'$'
     je end_checking_accept_moments
-    cmp ah,0
-    inc si
-    jne checking_accept_moments
+    cmp ah,1
+    je not_set_false_return
+    set_false_return:
     mov al,1
     jmp end_checking_accept_moments
+    not_set_false_return:
+    inc si
+    jmp checking_accept_moments
     end_checking_accept_moments:
     pop si
     ret
@@ -270,11 +274,13 @@ start:
 
     xor ax,ax
     mov ah,buffer[0]            ;checking symbol
-    cmp ah,0Ah                  ;if its \n
-    jne another_varitation_enter_checker_main  ;(if not enter) check another variation
-    another_varitation_enter_checker_main:
-    cmp ah,0Dh                  ;another variation of enter
+    cmp ah,0Dh                  ;enter symbol
     jne Calling_checker_letter
+    ;after 0Dh goes symbol 0Ah, so we need to skip him
+    mov cx,1        ;*
+    mov ah,3fh      ;*
+    lea dx,buffer   ;*
+    int 21h         ;*skipped
     call EndOfLine              ;(if enter) we check if all letter were used
     cmp al,0                    ;(result from function EndOfLine)
     jne line_is_not_accepted    ;if its not eqaul to 0, means not all letters where used
