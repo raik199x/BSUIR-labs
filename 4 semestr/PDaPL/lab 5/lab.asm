@@ -1,4 +1,5 @@
 .model small
+.386
 .stack 100h
 .data
     EnteringAcceotSymbolsMessage db 10,13,"enter symbols to accept: ",'$'
@@ -115,6 +116,11 @@ InputThisLine proc
     int 21h
     pop  dx         ;retreaving data for dx
     mov al,buffer[0] ;taking readed symbol
+    cmp al,0Ah      ;if FOR SOME REASON 0dh is missing, we should check 0ah
+    jne is_it_0dh
+    dec dx
+    jmp this_is_not_end_of_line
+    is_it_0dh:
     cmp al,0Dh      ;another variation of enter
     jne this_is_not_end_of_line
     mov cx,1        ;*
@@ -135,9 +141,8 @@ InputThisLine proc
     mov ah,3fh                  ;setting mode for reading
     int 21h
 
-    ;;debug info
-    mov ah,buffer[0]
-    ;;end debug info
+    cmp cx,ax
+    jne endfile_input
 
     mov bx,FileDescriptorOutput ;placing working descriptor output file
     mov ah,40h                  ;setting write mode
@@ -150,6 +155,17 @@ InputThisLine proc
     jmp writting_data           ;else continue
 
     end_writting:
+    jmp full_end_fun
+    endfile_input:
+    mov bx,FileDescriptorOutput
+    mov ah,40h
+    mov cx,1
+    mov al,0Dh
+    mov buffer[0],al
+    lea dx,buffer
+    xor al,al
+    int 21h
+    full_end_fun:
     pop dx
     pop cx
     pop bx
@@ -270,10 +286,22 @@ start:
     jc Error_files_message
     ;
     mov cx,ax
-    jcxz close_file ;to change in future
+    jcxz check_end_of_file ;if we reached limit of file
 
     xor ax,ax
     mov ah,buffer[0]            ;checking symbol
+    cmp ah,0Ah                  ;if FOR SOME REASON 0dh is mssing, we should firstly check 0ah
+    jne is_it_0dh_main
+    call EndOfLine
+    cmp al,0
+    jne line_is_not_accepted
+    call InputThisLine          ;(if all letters where used) We run function to write line
+    call RestoreLetters         ;set to 0 written symbols
+    mov ax,FileLinesPassed      ;*also increasing
+    inc ax                      ;*number
+    mov FileLinesPassed,ax      ;*of passed lines
+    jmp reading_Data            ;start again
+    is_it_0dh_main:
     cmp ah,0Dh                  ;enter symbol
     jne Calling_checker_letter
     ;after 0Dh goes symbol 0Ah, so we need to skip him
@@ -302,11 +330,17 @@ start:
 
     jmp reading_Data
 
+check_end_of_file:
+    call EndOfLine              ;(if enter) we check if all letter were used
+    cmp al,0                    ;(result from function EndOfLine)
+    jne close_file
+    call InputThisLine
 close_file:
     mov ah,3Eh
     int 21h
-
-    ;checkers
+    mov bx,FileDescriptorOutput
+    mov ah,3Eh
+    int 21h
     jmp __END__
 
 __Error_open_file__:
