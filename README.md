@@ -23,3 +23,11 @@ Fourth semester
  * [Cross-Platforming Programming](https://github.com/raik199x/JavaKPP) - currently in private repository =)
  * [CPPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
  * [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
+
+
+
+ I will be very happy if you tell me "thanks" somewhere =)
+
+ Telegram: @raik199x
+
+ Mail:     raik199x@mail.ru

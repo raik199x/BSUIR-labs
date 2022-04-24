@@ -8,7 +8,7 @@ Marks:
 
   Lab 4: 7/10
 
-  Lab 5: todo
+  Lab 5: TBA
 
   Lab 6: todo
 

@@ -13,6 +13,3 @@ Marks:
   Lab 6: todo
 
   Lab 7: todo
-
-  Lab 8: todo
-

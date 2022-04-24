@@ -8,9 +8,9 @@ Marks:
 
   Lab 4: 9/10
 
-  Lab 5: todo
+  Lab 5: 10/10
 
-  Lab 6: todo
+  Lab 6: 10/10
 
   Lab 7: 10/10
 
