@@ -2,7 +2,7 @@
 .386
 .stack 100h
 .data
-    EnteringAcceotSymbolsMessage db 10,13,"enter symbols to accept: ",'$'
+    EnteringAcceotSymbolsMessage db 10,13,"enter symbols to accept (case sensetive): ",'$'
     SymbolWriteError db "Symbol wasnt written",10,13,'$'
 
     OutputFileName db "output.txt",0
@@ -29,25 +29,25 @@ jmp start
 
 ;psp 126 symbols max
 CheckCommandLine proc
-
+    ;getting psp block (nor really necessary, but shit can happen)
     mov ah, 62h
-    int 21h
+    int 21h     ;get block
     push es
-    mov es,bx
-    mov bx,80h
+    mov es,bx   ;and send it to es
+    mov bx,80h  ; [80h] - amount of symbols in args (like argc in C\C++)
     mov cl,es:bx
 
     mov ah,1
     xor ch,ch
-    cmp cl,0
-    je end_fun_check
+    cmp cl,0            ;if there is no symbols
+    je end_fun_check    ;leave the function
 
     inc bx
-    clear_freacking_spaces:
-    mov al,es:bx
-    cmp al,32
+    clear_freacking_spaces: ;*there is a thing, that arguments also parse all enters
+    mov al,es:bx            ;*so a just clear all starting spaces
+    cmp al,32               ;*others maybe necessary (not really, because path would be broken)
     jne cleared_freacking_spaces
-    dec cl
+    dec cl                  ;dont forget to decrease amount of symbols to be readen
     inc bx
     jmp clear_freacking_spaces
     cleared_freacking_spaces:
@@ -57,12 +57,12 @@ CheckCommandLine proc
     xor si,si
 
     copy_letter:
-    mov al,es:bx
-    mov cmd_line[si],al
+    mov al,es:bx        ;moving from argument line
+    mov cmd_line[si],al ;and saving for our file name
     inc si
     inc bx
     loop copy_letter
-    mov cmd_line[si],0h
+    mov cmd_line[si],0h ;file name should be ended with 0, so we put 0h
     mov ah,0
 
     end_fun_check:
@@ -71,6 +71,7 @@ CheckCommandLine proc
     CheckCommandLine endp
 
 EnterAcceptSymbols proc
+    ;simple implementation of writting symbols
     xor si,si
     mov ah,9
     lea dx,EnteringAcceotSymbolsMessage
@@ -121,7 +122,7 @@ InputThisLine proc
     dec dx
     jmp this_is_not_end_of_line
     is_it_0dh:
-    cmp al,0Dh      ;another variation of enter
+    cmp al,0Dh      ;enter symbol
     jne this_is_not_end_of_line
     mov cx,1        ;*
     mov ah,3fh      ;*
@@ -156,15 +157,15 @@ InputThisLine proc
 
     end_writting:
     jmp full_end_fun
-    endfile_input:
+    endfile_input:              ;if we faced end of file
     mov bx,FileDescriptorOutput
-    mov ah,40h
-    mov cx,1
-    mov al,0Dh
-    mov buffer[0],al
-    lea dx,buffer
+    mov ah,40h                  ;set mode fo writting
+    mov cx,1                    ;write 1 symbol
+    mov al,0Dh                  ;*the symbol will be
+    mov buffer[0],al            ;*enter
+    lea dx,buffer               ;setting up what to write
     xor al,al
-    int 21h
+    int 21h                     ;finally write
     full_end_fun:
     pop dx
     pop cx
@@ -178,7 +179,7 @@ RestoreLetters proc
     push si
     push ax
     xor si,si
-
+    ;simply place all bit array into 0
     Restoring:
     mov al,IsAcceptedSymbols[si]
     cmp al,'$'
@@ -223,7 +224,7 @@ CheckLetters proc
     xor si,si
     xor ax,ax
     xor bx,bx
-
+    ;check what symbol we just read
     mov bh,buffer[0]
     CheckingLettersAccept:
     mov bl,AcceptedSymbols[si]
