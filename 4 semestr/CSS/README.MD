@@ -14,7 +14,7 @@ Marks:
 
   Lab 7: 10/10
 
-  Lab 8: todo
+  Lab 8: 10/10
 
   Lab 9: todo
 
