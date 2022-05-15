@@ -82,6 +82,8 @@ int main(){
     for(int i = 0;i < 10;i++)
         pthread_join(processingFiles[i],NULL);
 
+    free(sendData);
+    free(processingFiles);
     free(path);
     fclose(fp);
     return 0;

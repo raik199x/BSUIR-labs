@@ -4,14 +4,16 @@
     programName db "HW.EXE",0
     Times db 10,13,"Times to run program: ",'$'
 
-    ErrorMessage db "an error was occured",10,13
-    ErrorBlockdestroyed db "memory control block destroyed",10,13
-    ErrorNotEnoughMemory db "not enought memory", 10, 13
-    ErrorEsWrong db "ES contains invalid adress",10,13
-    ErrorFileNot db "file was not found",10,13
-    ErrorNoPremission db "access to file is restricted",10,13
-    ErrorEnviroment db "wrong enviroment was setted",10,13
-    ErrorFormat db "wrong format was setted",10,13
+    ErrorMessage db "an error was occured",10,13,'$'
+    ErrorBlockdestroyed db "memory control block destroyed",10,13,'$'
+    ErrorNotEnoughMemory db "not enought memory", 10, 13,'$'
+    ErrorEsWrong db "ES contains invalid adress",10,13,'$'
+    ErrorFileNot db "file was not found",10,13,'$'
+    ErrorNoPremission db "access to file is restricted",10,13,'$'
+    ErrorEnviroment db "wrong enviroment was setted",10,13,'$'
+    ErrorFormat db "wrong format was setted",10,13,'$'
+    ErrorZero db "0 is not an option",10,13,'$'
+    ErrorMore db "more than 255 is not acceptable",10,13,'$'
 
     EPB dw 0000 ;dos-environment
         dw offset commandline,0
@@ -53,7 +55,7 @@
             cmp dx,1    ;if minus was already written we leave function as letter error
             je RetFunWrite
             mov dx,1    ;otherwise we set flag to make number negative in future
-            jmp StartLoopEnter
+            jmp CallBuffOverflow
             ContLoopEnter:
             ;checker 'enter' and letters-
                 ;additional check of overflow
@@ -98,6 +100,19 @@ start:
     mov ds,ax
 
     call WriteNum
+    cmp cx,0
+    jne continue_check
+    mov ah,9
+    lea dx,ErrorZero
+    int 21h
+    jmp __END__
+    continue_check:
+    cmp cx,255
+    jng loop_start
+    mov ah,9
+    lea dx,ErrorMore
+    int 21h
+    jmp __END__
     loop_start:
     mov ah,4Ah
     shift = program_length + 300h

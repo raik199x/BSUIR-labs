@@ -8,7 +8,7 @@
 char* EnterLineReturn(){
     char *line;
     int line_size = 0, letter_num = 0; char letter;
-    line = (char*)malloc(1*sizeof(char));
+    line = (char*)malloc(sizeof(char));
     while(1){
         scanf("%c", &letter);
         if(letter == '\0')
