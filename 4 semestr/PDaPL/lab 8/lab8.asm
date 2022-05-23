@@ -2,7 +2,6 @@
 .stack 100h
 .data
   old_int dd 0
-  testLine db "interrupt was used",10,13,'$'
   cmd_line db 127 dup('$')
   CmdError db "No arguments passed", 10,13,'$'
   temp db ?
@@ -68,18 +67,6 @@ int_handler proc far
   push ax
   push si
   ;main part (do not use dos interruptions)
-  xor si,si
-
-  output_message:
-  mov al,testLine[si]
-  cmp al, '$'
-  je end_output_message
-  mov ah, 0Eh
-  int 10h
-  inc si
-  jmp output_message
-  end_output_message:
-  
   mov ah,00h
   int 16h
   ;recovering
@@ -128,9 +115,16 @@ installing_new_handler:
   jcxz end_reading_file
   mov ah,02h
   mov dl,temp
+  cmp dl,0Ah
+  je placing_new_line
   int 21h
-
-  ;slowing program
+  jmp slowing_program
+  placing_new_line:
+  mov dl,10
+  int 21h
+  mov dl,13
+  int 21h
+  slowing_program:
   mov cx,0010h
   mov dx,0000h
   mov ah,86h

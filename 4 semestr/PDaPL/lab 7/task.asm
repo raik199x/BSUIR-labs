@@ -1,9 +1,10 @@
 .model small
 .stack 100h
+.386
 .data
     programName db "HW.EXE",0
-    Times db 10,13,"Times to run program: ",'$'
-
+	cmd_line db 127 dup ('$')
+    
     ErrorMessage db "an error was occured",10,13,'$'
     ErrorBlockdestroyed db "memory control block destroyed",10,13,'$'
     ErrorNotEnoughMemory db "not enought memory", 10, 13,'$'
@@ -14,7 +15,10 @@
     ErrorFormat db "wrong format was setted",10,13,'$'
     ErrorZero db "0 is not an option",10,13,'$'
     ErrorMore db "more than 255 is not acceptable",10,13,'$'
-
+    ErrorCmd db "empty command line",10,13,'$'
+	ErrorBadConvert db "symbols in command line",10,13,'$'
+    UnErrorCmd db "unexpected error in cmd",10,13,'$'
+    
     EPB dw 0000 ;dos-environment
         dw offset commandline,0
         dw 005Ch,006Ch
@@ -25,81 +29,99 @@
 
     jmp start
 
-    ;function to write nums (from last labs)
-    WriteNum proc
-        xor di,di
-        xor ax,ax   ;
-        xor bx,bx   ;   clearing
-        xor cx,cx   ;
-        mov bx,10   ;use for dividing by 10
-
-        mov ah,9
-        lea dx, Times
-        int 21h
-
-        StartLoopEnter:
-            mov ah,1
-            int 21h
-            xor ah,ah
-            ;checker 'enter' and letters+
-            cmp al,0Dh
-            je OutFunWrite
-            cmp al,'-'
-            je MinusTrue
-            cmp al, '0'
-            jl OutFunWrite
-            cmp al,'9'
-            jg OutFunWrite
-            jmp ContLoopEnter
-            MinusTrue:
-            cmp dx,1    ;if minus was already written we leave function as letter error
-            je RetFunWrite
-            mov dx,1    ;otherwise we set flag to make number negative in future
-            jmp CallBuffOverflow
-            ContLoopEnter:
-            ;checker 'enter' and letters-
-                ;additional check of overflow
-                cmp di,4
-                jne ContinueAddingNum
-                sub al,30h
-                cmp dx,1
-                je NegativeChecker
-                cmp al,7
-                jg CallBuffOverflow
-                add al,30h
-                jmp ContinueAddingNum
-                NegativeChecker:
-                cmp al,8
-                jg CallBuffOverflow
-                add al,30h
-                jmp ContinueAddingNum
-            ContinueAddingNum:
-            xchg ax,cx  ;because mul command multiply number in ax, we swap two atributes
-            push dx     ;remember number in dx (negative flag)
-            imul bx     ;multiply by 10 (actually there is no need in imul, we could use just mul)
-            pop dx      ;returning negative flag
-            jo  CallBuffOverflow
-            xchg ax,cx  ;returning normal number in cx
-            sub al,30h  
-            add cx,ax   ;adding number to cx
-            inc di
-            jmp StartLoopEnter
-    OutFunWrite:
-        cmp dx,1        ;if negative flag was set
-        jne RetFunWrite
-        xor dx,dx
-        neg cx          ;we make negative num
-    RetFunWrite:
-        ret
-    CallBuffOverflow:
-        mov cx,0
-        ret
-    WriteNum endp
+    ;psp 126 symbols max
+    CheckCommandLine proc
+    ;getting psp block (nor really necessary, but shit can happen)
+    mov ah, 62h
+    int 21h     ;get block
+    push es
+    mov es,bx   ;and send it to es
+    mov bx,80h  ; [80h] - amount of symbols in args (like argc in C\C++)
+    mov cl,es:bx
+    
+    mov ah,1
+    xor ch,ch
+    cmp cl,0            ;if there is no symbols
+    je end_fun_check    ;leave the function
+    
+    inc bx
+    clear_freacking_spaces: ;*there is a thing, that arguments also parse all enters
+    mov al,es:bx            ;*so a just clear all starting spaces
+    cmp al,32               ;*others maybe necessary (not really, because path would be broken)
+    jne cleared_freacking_spaces
+    dec cl                  ;dont forget to decrease amount of symbols to be readen
+    inc bx
+    jmp clear_freacking_spaces
+    cleared_freacking_spaces:
+    
+    copy_cmd_into_line:
+    xor ch,ch
+    xor si,si
+    
+    copy_letter:
+    mov al,es:bx        ;moving from argument line
+    mov cmd_line[si],al ;and saving for our file name
+    inc si
+    inc bx
+    loop copy_letter
+    mov cmd_line[si],'$' ;file name should be ended with 0, so we put 0h
+    mov ah,0
+    
+    end_fun_check:
+    pop es
+    ret
+    CheckCommandLine endp
+    
+	ConvertToNum proc
+		push si
+		push bx
+		
+		xor ax,ax
+		xor cx,cx
+		xor si,si
+		mov bx,10
+		converting:
+		mov al,cmd_line[si]
+		cmp al,'$'
+		je end_convert
+		sub al,30h
+		cmp al,9
+		ja bad_convert
+		cmp al,0
+		jb bad_convert
+		xchg ax,cx
+		mul bx
+		xchg ax,cx
+		add cx,ax
+        inc si
+		jmp converting
+		end_convert:
+		cmp cx,255
+		ja bad_convert
+		cmp cx,0
+		jb bad_convert
+		je bad_convert
+		
+		pop bx
+		pop si
+		ret
+		bad_convert:
+		pop bx
+		pop si
+		mov ah,1
+		ret
+		ConvertToNum endp
 start:
     mov ax,DGROUP
     mov ds,ax
 
-    call WriteNum
+	call CheckCommandLine
+	cmp ah,1
+	je EmptyCmd
+	call ConvertToNum
+	cmp ah,1
+	je ErrorCmdx
+	
     cmp cx,0
     jne continue_check
     mov ah,9
@@ -197,6 +219,16 @@ Error4bh_5:
     mov ah,9
     lea dx,ErrorFormat
     int 21h
+	jmp __END__
+EmptyCmd:
+	mov ah,9
+	lea dx,ErrorCmd
+	int 21h
+    jmp __END__
+ErrorCmdx:
+  mov ah,9
+  lea dx,UnErrorCmd
+  int 21h
 __END__:
     mov ax,4C00H
     int 21h

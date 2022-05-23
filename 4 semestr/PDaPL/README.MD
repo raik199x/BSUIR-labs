@@ -10,8 +10,8 @@ Marks:
 
   Lab 5: 9/10
 
-  Lab 6: TBA
+  Lab 6: 8/10
 
-  Lab 7: TBA
+  Lab 7: 7/10
 
-  Lab 8: todo
+  Lab 8: TBA
