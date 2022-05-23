@@ -12,4 +12,4 @@ Marks:
 
   Lab 6: 8/10
 
-  Lab 7: todo
+  Lab 7: 9/10
