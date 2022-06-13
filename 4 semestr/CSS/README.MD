@@ -18,6 +18,5 @@ Marks:
 
   Lab 9: 10/10
 
-  Lab 10: todo
+  Lab 10-11: SKIPPED
 
-  Lab 11: todo
