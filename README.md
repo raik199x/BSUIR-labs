@@ -23,7 +23,7 @@ Fourth semester
  * [Cross-Platforming Programming](https://github.com/raik199x/JavaKPP)
  * [CPPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
  * [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
- * (there woung be answers to exams because whole team "sessio 8+' get automate marks, except of theory of probability, but you can download test from bsuir helper)
+ * (there wount be answers to exams because whole team "session 8+' get automate marks, except of theory of probability, but you can download test from bsuir helper)
 
 Fivth semester
  * Coming soon
