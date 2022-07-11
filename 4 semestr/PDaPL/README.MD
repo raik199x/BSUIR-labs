@@ -14,4 +14,4 @@ Marks:
 
   Lab 7: 7/10
 
-  Lab 8: TBA
+  Lab 8: 8/10
