@@ -10,4 +10,4 @@ So i dont recommend to use my version of lab and if you find simillar code, just
 
 ---
 
-Also this lab is not working in dosbox, only vritual dos, so dont forget to use my [script](https://github.com/raik199x/BSUIR-labs/blob/main/4%20semestr/APK/Lab%201%20(tty0tty)/DosMakesGoBrrrrrrrrrrrrrr.sh) (if you wish)
+Also this lab is not working in dosbox, only vritual dos, so dont forget to use my [script](https://github.com/raik199x/BSUIR-labs/blob/main/4%20semestr/PCA/Lab%201%20(tty0tty)/DosMakesGoBrrrrrrrrrrrrrr.sh) (if you wish)

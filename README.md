@@ -18,12 +18,15 @@ Third semester
  * (there wount be answers to exams because whole team "session 8+" get automate marks)
 
 Fourth semester
- * [Computer System Software](https://github.com/raik199x/student-life/tree/main/4%20semestr/%D0%A1%D0%9F%D0%9E%D0%92%D0%9C)
- * [Personal Computer Architect](https://github.com/raik199x/student-life/tree/main/4%20semestr/APK)
- * [Cross-Platforming Programming](https://github.com/raik199x/JavaKPP) - currently in private repository =)
+ * [Computer System Software](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/CSS)
+ * [Personal Computer Architect](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PCA)
+ * [Cross-Platforming Programming](https://github.com/raik199x/JavaKPP)
  * [CPPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
  * [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
+ * (there wount be answers to exams because whole team "session 8+' get automate marks, except of theory of probability, but you can download test from bsuir helper)
 
+Fivth semester
+ * Coming soon
 
 
  I will be very happy if you tell me "thanks" somewhere =)
