@@ -9,7 +9,7 @@ Second, before installation of quartus, you need to install compatibility librar
 
   sudo dpkg -i libpng12-0_1.2.54-1ubuntu1.1+1~ppa0~eoan_amd64.deb
 
-Third, install some additional librariesr
+Third, install some additional libraries
 
   sudo apt-get install libxft2 libxft2:i386 libncurses5:i386 ia32-libs
 

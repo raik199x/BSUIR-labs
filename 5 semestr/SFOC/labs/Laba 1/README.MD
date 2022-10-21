@@ -1,1 +1,0 @@
-### Three-digit comparator 

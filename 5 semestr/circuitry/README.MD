@@ -1,3 +1,9 @@
+Done with [timuri alvarez](https://github.com/TimuriAlvarez)
+
+---
+
 Notes:
 
-L1 - has some mistakes in design that was not fixed
+L1 - charts lines must be named (we forget to do it)
+
+L2 - has some misspell that was not fixed
