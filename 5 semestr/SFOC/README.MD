@@ -11,7 +11,13 @@ Second, before installation of quartus, you need to install compatibility librar
 
 Third, install some additional libraries
 
-  sudo apt-get install libxft2 libxft2:i386 libncurses5:i386 ia32-libs
+  sudo apt-get install libxft2 libxft2:i386 libncurses5:i386 ia32-libs libxtst6:i386
+
+if your package manager can't find this libs, type this command
+
+  sudo dpkg --add-architecture i386
+
+and then repeat installation of libs
 
 And after that you can install and run quartus, if you would not able to simulate time scheme with error of "modelsim" you need to duplicate path into modelsim from modelsim-alter, to do this go to: 
 tools ->  options -> eda tool option
