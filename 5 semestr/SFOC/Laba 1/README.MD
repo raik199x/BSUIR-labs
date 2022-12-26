@@ -1,1 +1,1 @@
-### Three-digit comparator 
+![Condition](lab1.png)

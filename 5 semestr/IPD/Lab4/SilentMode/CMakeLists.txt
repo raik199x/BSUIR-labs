@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+project( main )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( Sphoto SilentPhoto.cpp )
+add_executable( Svideo SilentVideo.cpp )
+target_link_libraries( Sphoto ${OpenCV_LIBS} )
+target_link_libraries( Svideo ${OpenCV_LIBS} )

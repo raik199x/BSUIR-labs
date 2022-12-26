@@ -1,0 +1,12 @@
+@startuml UseCase
+
+title Use Case
+
+actor "Пользователь" as User
+usecase "Рандомизация" as Random
+
+User -> Random
+User -> (Изменить уровень профиля)
+User -> (Вкл\выкл DLC бойцов)
+
+@enduml

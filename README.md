@@ -27,8 +27,14 @@ Fourth semester
  * (there wount be answers to exams because whole team "session 8+' get automate marks, except of theory of probability, but you can download test from bsuir helper)
 
 Fivth semester
- * Coming soon
+ * [Fundamentals of information security](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/FIS)
+ * [Software development and testing technologies](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SDTT)
+ * [Structural and functional organization of computers](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SFOC)
+ * [Theoretical foundations of computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/TFCN)
+ * [Circuitry](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/circuitry)
+ * [Exams](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/examens)
 
+---
 
  I will be very happy if you tell me "thanks" somewhere =)
 

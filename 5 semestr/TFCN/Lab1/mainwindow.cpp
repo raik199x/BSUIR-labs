@@ -9,10 +9,10 @@
 #include <QCloseEvent>
 #include <sys/file.h>
 
-#define TNT0 "/home/alexander/COMPORTS/tnt0"
-#define TNT1 "/home/alexander/COMPORTS/tnt1"
-#define TNT2 "/home/alexander/COMPORTS/tnt2"
-#define TNT3 "/home/alexander/COMPORTS/tnt3"
+#define TNT0 "/home/raik199x/COMPORTS/tnt0"
+#define TNT1 "/home/raik199x/COMPORTS/tnt1"
+#define TNT2 "/home/raik199x/COMPORTS/tnt2"
+#define TNT3 "/home/raik199x/COMPORTS/tnt3"
 
 void MainWindow::closeEvent(QCloseEvent *event){
     ::close(this->writer);
