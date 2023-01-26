@@ -20,7 +20,7 @@ Third semester
 Fourth semester
  * [Computer System Software](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/CSS)
  * [Personal Computer Architect](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PCA)
- * [Cross-Platforming Programming](https://github.com/raik199x/JavaKPP)
+ * [Cross-Platforming Programming](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/JavaCPP)
  * [PDaPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
  * [Circuit Design](https://github.com/raik199x/BSUIR-labs/tree/2b206dadc607a9f032e0a0ff1a46322439cee27b/4%20semestr/Circuit%20Design)
  * [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
@@ -31,6 +31,7 @@ Fivth semester
  * [Software development and testing technologies](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SDTT)
  * [Structural and functional organization of computers](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SFOC)
  * [Theoretical foundations of computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/TFCN)
+ * [Interfaces and perepherial devices](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/IPD)
  * [Circuitry](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/circuitry)
  * [Exams](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/examens)
 
