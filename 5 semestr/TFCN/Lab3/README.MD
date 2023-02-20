@@ -2,7 +2,7 @@
 
 Checked by legendary man - Glezevich
 
-Qt + Linux 
+Qt + Linux
 
 ---
 

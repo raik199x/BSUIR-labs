@@ -38,5 +38,5 @@ https://askubuntu.com/questions/895897/error-while-loading-shared-libraries-libp
 
 ---
 
-p.s. But as practic show, it's better to install virtual mashine with quartus 9.1 because of missing feature in older versions of program
-BUT it's much more better to use **wine** (checked it later, works greately)
+p.s. But as practice show, it's better to install virtual machine with quartus 9.1 because of missing feature in older versions of program
+BUT it's much more better to use **wine** (checked it later, works greatly)

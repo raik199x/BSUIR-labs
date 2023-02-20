@@ -1,8 +1,10 @@
+# Lab 9
+
 Task for this lab is in lab-9.odg
 
 ---
 
-if you don't know how mmap works you [MUST watch this video](https://www.youtube.com/watch?v=m7E9piHcfr4), after it
+if you don't know how *mmap* works you [MUST watch this video](https://www.youtube.com/watch?v=m7E9piHcfr4), after it
 everything becomes clear except one thing...
 
 Pagesize, yep, problem is offset%sysconf(pagesize) == 0, i dunno they made this like that, but if you set wrong offset (%pagesize != 0) mmap will failed, funny (no).

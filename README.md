@@ -1,39 +1,58 @@
-Laboratory work of student Krachkouski Alexander (BSUIR - Computer Systems and Networks - Calculating Mashines, systems and networks) 
+# Bsuir Labs
 
-First semester
-  * [Basic of algorithmiztion and programming](https://github.com/raik199x/student-life/tree/main/1%20semestr)
-  * [Answers to exams](https://mega.nz/folder/tOBCWJIQ#6VFbbc7J7PVOZAH6HF8JNQ)
+## Laboratory work of student Krachkouski Alexander (BSUIR - Computer Systems and Networks - Calculating Machines, systems and networks)
 
-Second semester
- * [Construction of Programs and Programming Languages](https://github.com/raik199x/student-life/tree/main/2%20semestr)
- * [Course Project КПиЯП](https://mega.nz/folder/kfxW1J4T#Ai8xG8GYLUnlqVUZnerRSw)
- * [Answers to exams](https://mega.nz/folder/gXpCjZpY#4sTSBgLJ9jzq-WLlXYVtjQ)
+### For Linux users (except of semester 1-2)
 
-Third semester
- * [Construction of Programs and Programming Languages](https://github.com/raik199x/student-life/tree/main/3%20semestr) (now with conditions :D)
- * [Course Project CPPL](https://github.com/raik199x/file-manager-for-linux)
- * [Human Life Safety labs](https://mega.nz/folder/1Sx0jTSC#d8mv18nHmIBdc8TZgxroJg) (They were ~~stolen~~ downloaded from pc in the cabinet)
- * [Theory of Electric Chains tc p1](https://mega.nz/folder/ob5C3BqB#CW5uotscMA6lN9EvzIuUGA)
- * [Theory of Electric Chains tc p2](https://mega.nz/folder/tW5gTBTS#rQk3JlMYT-lDu15NcDpJyQ)
- * (there wount be answers to exams because whole team "session 8+" get automate marks)
+<details><summary>First semester</summary>
 
-Fourth semester
- * [Computer System Software](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/CSS)
- * [Personal Computer Architect](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PCA)
- * [Cross-Platforming Programming](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/JavaCPP)
- * [PDaPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
- * [Circuit Design](https://github.com/raik199x/BSUIR-labs/tree/2b206dadc607a9f032e0a0ff1a46322439cee27b/4%20semestr/Circuit%20Design)
- * [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
- * (there wount be answers to exams because whole team "session 8+' get automate marks, except of theory of probability, but you can download test from bsuir helper)
+* [Basic of algorithmization and programming](https://github.com/raik199x/student-life/tree/main/1%20semestr)
+* [Answers to exams](https://mega.nz/folder/tOBCWJIQ#6VFbbc7J7PVOZAH6HF8JNQ)
 
-Fivth semester
- * [Fundamentals of information security](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/FIS)
- * [Software development and testing technologies](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SDTT)
- * [Structural and functional organization of computers](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SFOC)
- * [Theoretical foundations of computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/TFCN)
- * [Interfaces and perepherial devices](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/IPD)
- * [Circuitry](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/circuitry)
- * [Exams](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/examens)
+</details>
+
+<details><summary>Second semester</summary>
+
+* [Construction of Programs and Programming Languages](https://github.com/raik199x/student-life/tree/main/2%20semestr)
+* [Course Project КПиЯП](https://mega.nz/folder/kfxW1J4T#Ai8xG8GYLUnlqVUZnerRSw)
+* [Answers to exams](https://mega.nz/folder/gXpCjZpY#4sTSBgLJ9jzq-WLlXYVtjQ)
+
+</details>
+
+<details><summary>Third semester</summary>
+
+* [Construction of Programs and Programming Languages](https://github.com/raik199x/student-life/tree/main/3%20semestr) (now with conditions :D)
+* [Course Project CPPL](https://github.com/raik199x/file-manager-for-linux)
+* [Human Life Safety labs](https://mega.nz/folder/1Sx0jTSC#d8mv18nHmIBdc8TZgxroJg) (They were ~~stolen~~ downloaded from pc in the cabinet)
+* [Theory of Electric Chains tc p1](https://mega.nz/folder/ob5C3BqB#CW5uotscMA6lN9EvzIuUGA)
+* [Theory of Electric Chains tc p2](https://mega.nz/folder/tW5gTBTS#rQk3JlMYT-lDu15NcDpJyQ)
+* (there wont be answers to exams because whole team "session 8+" get automate marks)
+
+</details>
+
+<details><summary>Fourth semester</summary>
+
+* [Computer System Software](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/CSS)
+* [Personal Computer Architect](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PCA)
+* [Cross-Platforming Programming](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/JavaCPP)
+* [PDaPL](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PDaPL)
+* [Circuit Design](https://github.com/raik199x/BSUIR-labs/tree/2b206dadc607a9f032e0a0ff1a46322439cee27b/4%20semestr/Circuit%20Design)
+* [Course Project CSS](https://github.com/raik199x/Client-server-Chat-linux)
+* (there wont be answers to exams because whole team "session 8+' get automate marks, except of theory of probability, but you can download test from bsuir helper)
+
+</details>
+
+<details><summary>Fifth semester</summary>
+
+* [Fundamentals of information security](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/FIS)
+* [Software development and testing technologies](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SDTT)
+* [Structural and functional organization of computers](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SFOC)
+* [Theoretical foundations of computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/TFCN)
+* [Interfaces and perepherial devices](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/IPD)
+* [Circuitry](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/circuitry)
+* [Exams](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/examens)
+
+</details>
 
 ---
 

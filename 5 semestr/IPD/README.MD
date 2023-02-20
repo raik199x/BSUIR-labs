@@ -1,4 +1,4 @@
-# Interfaces and periphereals
+# Interfaces and peripherals
 
 Checked by Kupriyanova
 

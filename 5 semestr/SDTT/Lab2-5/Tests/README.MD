@@ -95,7 +95,7 @@ The final product of the test is a standalone application that will be used to d
 * Testing environment and data will emulate the production ones as much as possible.
 * Testing will be a repeatable, quantifiable, and measurable activity.
 * Testing will be divided into distinct test phases, each with clearly defined objectives and goals.
-* There will be entrance and exit criteria. 
+* There will be entrance and exit criteria.
 
 ## 2.4 Data Approach
 
@@ -124,7 +124,7 @@ The final product of the test is a standalone application that will be used to d
 
 #### 2.5.1.2 Testing 'GetTrinkets' algorithm
 
-The test will receive list of all possible trinkets, select those  that are available for the selected level and begin to generate random trinkets. If the trinket is not suitable (it's level is higher than selected one) it will fail.   
+The test will receive list of all possible trinkets, select those  that are available for the selected level and begin to generate random trinkets. If the trinket is not suitable (it's level is higher than selected one) it will fail.
 The test is repeatable: the same process takes 1K attempts before finally pass, if any of the attempts is failed the entire test  is failed.
 
 ### 2.5.2 User Acceptance Test (UAT)

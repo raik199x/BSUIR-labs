@@ -1,12 +1,15 @@
+# Lab 7
+
 In my opinion this is very hard lab,
  because you need to learn how [shared memory](https://www.youtube.com/watch?v=WgVSq-sgHOc) + [semaphors](https://www.youtube.com/watch?v=ukM_zzrIeXs&t) works...
 
 ---
 
 Every section of circle create in a shared memory, so struct Circle have such fields as
-  * current_shmid 
-  * right_shmid
-  * left_shmid
+
+* current_shmid
+* right_shmid
+* left_shmid
 
 All of this replace pointers (that must be in a normal circle), using them our program can move in circle.
 
@@ -27,4 +30,5 @@ To watch how producers running through shared memory open terminal and write `wa
  ---
 
 Thanks Mikhail for food :D
+
 Thanks to [Maksim](https://github.com/postavtezachet) for passing this road with me.

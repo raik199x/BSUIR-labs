@@ -1,5 +1,7 @@
+# Personal Computer Architecture
+
 Marks:
- 
+
   Lab 1: 10/10
 
   Lab 2: skipped
