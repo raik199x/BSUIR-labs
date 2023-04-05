@@ -16,6 +16,7 @@ thirdLocalPriorities = CalculateSaati(matrixThree, 5);
 
 % result
 globalPriorities = zeros(5);
+
 for i = 1:5
     globalPriorities(i) = firstLocalPriorities(i) * baseLocalPriorities(1) + secondLocalPriorities(i) * baseLocalPriorities(2) + thirdLocalPriorities(i) * baseLocalPriorities(3);
     fprintf('GP%d = %f\n', i, globalPriorities(i));

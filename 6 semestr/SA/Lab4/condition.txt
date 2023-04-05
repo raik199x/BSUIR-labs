@@ -1,0 +1,35 @@
+# This is the file for your condition to run lab 4
+# All line starting with # will be ignored
+# This program solve ONLY second way of calculating
+# NOTE: the set of parreto must be already applied to your task
+# There will be used preference method
+#
+# Please write number of experts
+2
+# Please write number of alternatives
+3
+# Please write preferences of two experts
+2 2 1
+1 3 2
+# End of preferences method
+#
+# Modified Kemeny-Snell algorithm
+# Please write number of criteria
+5
+# Write alternatives with ranking according to each of the criteria
+4 2 1 3 4
+2 4 3 1 3
+2 3 4 3 1
+# End of modified Kemeny-Snell algorithm
+#
+# ELECTRA method
+# Please, write dimensionless estimates
+0.36 0.8 0.9 0.62 0.36
+0.7 0.36 0.2 0.79 0.62
+0.7 0.62 0.36 0.62 0.9
+# Enter C* value
+0.4
+# Enter D* value
+0.5
+# End of ELECTRA method
+# End of file
