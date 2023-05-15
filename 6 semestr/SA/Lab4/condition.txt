@@ -30,6 +30,6 @@
 # Enter C* value
 0.4
 # Enter D* value
-0.5
+0.6
 # End of ELECTRA method
 # End of file

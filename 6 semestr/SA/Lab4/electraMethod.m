@@ -11,7 +11,7 @@ function result = electraMethod(numericRatings, nAlternatives, nCriteria, altern
 
             for k = 1:nAlternatives
 
-                if numericRatings(k, i) > numericRatings(k, j)
+                if numericRatings(k, i) < numericRatings(k, j)
                     agreementMatrix(i, j) = agreementMatrix(i, j) + alternativeWeights(k);
                 end
 

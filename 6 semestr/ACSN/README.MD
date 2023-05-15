@@ -2,6 +2,8 @@
 
 Teacher: Glezevich Ivan Ivanovich
 
+Welcome to hell
+
 ## Native or Wine?
 
 Glezevich recommends to use his versions of PacketTracer and GNS, but it's not forbidden to use latest\nightly versions, so
@@ -13,5 +15,7 @@ Is not available (2023) in Belarus, so it is hard to use native version on Linux
 ### GNS
 
 Works perfectly, but installation might be tricky, strongly recommend to use qemu for virtual machines in GNS.
+
+Also GNS makes your laptop fly, so it's better to use powerful laptops
 
 ## My variant is 930
