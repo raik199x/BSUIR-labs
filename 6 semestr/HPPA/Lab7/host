@@ -1,0 +1,2 @@
+master	slots=2 max_slots=5
+slave	slots=2 max_slots=5
