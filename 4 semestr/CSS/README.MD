@@ -22,3 +22,4 @@ Marks:
 
   Lab 10-11: SKIPPED
 
+Teacher: Басак Дмитрий Владимирович

@@ -2,6 +2,8 @@
 
 Done with [timuri alvarez](https://github.com/TimuriAlvarez)
 
+Teacher: Селезнёв Игорь Львович
+
 ---
 
 Notes:

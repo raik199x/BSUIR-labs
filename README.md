@@ -1,4 +1,4 @@
-# Bsuir Labs
+# BSUIR Labs
 
 ## Laboratory work of student Krachkouski Alexander (BSUIR - Computer Systems and Networks - Calculating Machines, systems and networks)
 
@@ -54,10 +54,25 @@
 
 </details>
 
+<details><summary>Sixth semester</summary>
+
+* [Administration of computer systems and networks](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/ACSN)
+* [Digital signal and image processing](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/DSIP)
+* [High performance processor architecture](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/HPPA)
+* [System analysis](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/SA)
+* [Exam](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/exam)
+* [Internship](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/Internship)
+
+</details>
+
+<details><summary>Seventh semester</summary>
+
+</details>
+
 ---
 
  I will be very happy if you tell me "thanks" somewhere =)
 
  Telegram: @raik199x
 
- Mail:     raik199x@mail.ru
+ Mail:     <raik199x@mail.ru>
