@@ -127,12 +127,12 @@ void searching_secondName(office *num, int data_amount) {
 	int flag = 0, step = 0, j = 0, stop_me = 0;
 	for (int i = 0; i < data_amount; i++) {
 		while (stop_me == 0) {
-			//скип символов
+			//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (search[step] == '*') {
 				flag = 1;
 				step++;
 			}
-			//окончание (найдено)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 			if (search[step] == '\0' && search[step] == (num + i)->second_name[j]) {
 				printf("\nclient %d\n second name: %s\n", i + 1, (num + i)->second_name);
 				printf("continue searching?\n 0) yes\n any other number) no\n");
@@ -143,18 +143,18 @@ void searching_secondName(office *num, int data_amount) {
 				}
 				break;
 			}
-			//причина окончания цикла (бэд)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)
 			if ((num + i)->second_name[j] == '\0') {
 				j = 0;
 				step = 0;
 				break;
 			}
-			//ускорение пробега
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (search[step] == '\0' && flag == 1) {
 				j++;
 				continue;
 			}
-			//причина выхода (бэд)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)
 			if ((num + i)->second_name[j] != search[step] && (num + i)->second_name[j] + 32 != search[step] && flag == 0) {
 				j = 0;
 				step = 0;
@@ -209,12 +209,12 @@ void searching_firstName(office *num, int data_amount) {
 	int flag = 0, step = 0, j = 0, stop_me = 0;
 	for (int i = 0; i < data_amount; i++) {
 		while (stop_me == 0) {
-			//скип символов
+			//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (search[step] == '*') {
 				flag = 1;
 				step++;
 			}
-			//окончание (найдено)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 			if (search[step] == '\0' && search[step] == (num + i)->first_name[j]) {
 				printf("\nclient %d\n first name: %s\n", i + 1, (num + i)->first_name);
 				printf("continue searching?\n 0) yes\n any other number) no\n");
@@ -225,18 +225,18 @@ void searching_firstName(office *num, int data_amount) {
 				}
 				break;
 			}
-			//причина окончания цикла (бэд)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)
 			if ((num + i)->first_name[j] == '\0') {
 				j = 0;
 				step = 0;
 				break;
 			}
-			//ускорение пробега
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (search[step] == '\0' && flag == 1) {
 				j++;
 				continue;
 			}
-			//причина выхода (бэд)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)
 			if ((num + i)->first_name[j] != search[step] && (num + i)->first_name[j] + 32 != search[step] && flag == 0) {
 				j = 0;
 				step = 0;
@@ -292,12 +292,12 @@ void searching_otchestvo(office *num, int data_amount) {
 	int flag = 0, step = 0, j = 0, stop_me = 0;
 	for (int i = 0; i < data_amount; i++) {
 		while (stop_me == 0) {
-			//скип символов
+			//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (search[step] == '*') {
 				flag = 1;
 				step++;
 			}
-			//окончание (найдено)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 			if (search[step] == '\0' && search[step] == (num + i)->otchestvo[j]) {
 				printf("\nclient %d\n otchestvo: %s\n", i + 1, (num + i)->otchestvo);
 				printf("continue searching?\n 0) yes\n any other number) no\n");
@@ -308,18 +308,18 @@ void searching_otchestvo(office *num, int data_amount) {
 				}
 				break;
 			}
-			//причина окончания цикла (бэд)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)
 			if ((num + i)->otchestvo[j] == '\0') {
 				j = 0;
 				step = 0;
 				break;
 			}
-			//ускорение пробега
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (search[step] == '\0' && flag == 1) {
 				j++;
 				continue;
 			}
-			//причина выхода (бэд)
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ)
 			if ((num + i)->otchestvo[j] != search[step] && (num + i)->otchestvo[j] + 32 != search[step] && flag == 0) {
 				j = 0;
 				step = 0;
@@ -650,7 +650,7 @@ void sort_secondName(office *num, int data_amount) {
 				while (1) {
 					temp3 = (num + position)->second_name[probeg];
 					temp4 = (num + j)->second_name[probeg];
-					//если слово закончилось
+					//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if (temp3 == '\0' && temp4 != '\0') {
 						position = j;
 						temp = temp2;
@@ -659,14 +659,14 @@ void sort_secondName(office *num, int data_amount) {
 					if (temp4 == '\0') {
 						break;
 					}
-					//выравнивание буквы
+					//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 					if (temp3 < 97) {
 						temp3 += 32;
 					}
 					if (temp4 < 97) {
 						temp4 += 32;
 					}
-					//сравнение
+					//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if (temp3 < temp4) {
 						break;
 					}
@@ -675,7 +675,7 @@ void sort_secondName(office *num, int data_amount) {
 						temp = temp2;
 						break;
 					}
-					probeg++; //переход на некст букву в имени
+					probeg++; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 				}
 			}
 		}
@@ -707,7 +707,7 @@ void sort_otchestvo(office *num, int data_amount) {
 				while (1) {
 					temp3 = (num + position)->otchestvo[probeg];
 					temp4 = (num + j)->otchestvo[probeg];
-					//если слово закончилось
+					//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if (temp3 == '\0' && temp4 != '\0') {
 						position = j;
 						temp = temp2;
@@ -716,14 +716,14 @@ void sort_otchestvo(office *num, int data_amount) {
 					if (temp4 == '\0') {
 						break;
 					}
-					//выравнивание буквы
+					//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 					if (temp3 < 97) {
 						temp3 += 32;
 					}
 					if (temp4 < 97) {
 						temp4 += 32;
 					}
-					//сравнение
+					//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if (temp3 < temp4) {
 						break;
 					}
@@ -732,7 +732,7 @@ void sort_otchestvo(office *num, int data_amount) {
 						temp = temp2;
 						break;
 					}
-					probeg++; //переход на некст букву в имени
+					probeg++; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 				}
 			}
 		}
@@ -764,7 +764,7 @@ void sort_firstName(office *num, int data_amount) {
 				while (1) {
 					temp3 = (num + position)->first_name[probeg];
 					temp4 = (num + j)->first_name[probeg];
-					//если слово закончилось
+					//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if (temp3 == '\0' && temp4 != '\0') {
 						position = j;
 						temp = temp2;
@@ -773,14 +773,14 @@ void sort_firstName(office *num, int data_amount) {
 					if (temp4 == '\0') {
 						break;
 					}
-					//выравнивание буквы
+					//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 					if (temp3 < 97) {
 						temp3 += 32;
 					}
 					if (temp4 < 97) {
 						temp4 += 32;
 					}
-					//сравнение
+					//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if (temp3 < temp4) {
 						break;
 					}
@@ -789,7 +789,7 @@ void sort_firstName(office *num, int data_amount) {
 						temp = temp2;
 						break;
 					}
-					probeg++; //переход на некст букву в имени
+					probeg++; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 				}
 			}
 		}

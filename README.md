@@ -2,7 +2,11 @@
 
 ## Laboratory work of student Krachkouski Alexander (BSUIR - Computer Systems and Networks - Calculating Machines, systems and networks)
 
-### For Linux users (except of semester 1-2)
+### For Linux users (except 2 semester)
+
+> Note: conditions for first semester were recovered by rerunning programs in 2023,
+> but second semester was not recovered, mostly because of windows api,
+> i did not wanted to rewrite programs because it would break "history context"
 
 <details><summary>First semester</summary>
 
