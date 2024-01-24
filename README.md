@@ -54,6 +54,7 @@
 * [Theoretical foundations of computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/TFCN)
 * [Interfaces and perepherial devices](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/IPD)
 * [Circuitry](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/circuitry)
+* [Course project circuitry](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/CourseProjectCircuitry)
 * [Exams](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/examens)
 
 </details>
@@ -65,11 +66,21 @@
 * [High performance processor architecture](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/HPPA)
 * [System analysis](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/SA)
 * [Exam](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/exam)
+* [Course project SFOC](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/CourseProjectSFOC)
 * [Internship](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/Internship)
 
 </details>
 
 <details><summary>Seventh semester</summary>
+
+* [Сomputer network hardware](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/CNH)
+* [Сomputer network hardware Course project](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/CNHCourseProject)
+* [Databases](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/Databases)
+* [Digital signal and image processing](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/DSIP)
+* [Microprocessor Means and Systems](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/MMaS)
+* [System software for local computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/SSfLCN)
+* [Modeling](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/Modeling)
+* [Exam](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/exams)
 
 </details>
 

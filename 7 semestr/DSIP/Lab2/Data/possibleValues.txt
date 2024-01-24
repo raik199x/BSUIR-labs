@@ -1,0 +1,10 @@
+Data/Sample1.jpg 200 3 2 area
+Data/Sample2.jpg 150 11 2
+Data/Sample3.jpg 200 12 2
+Data/Sample4.jpg 220 11 2
+Data/Sample5.jpg 230 11 2
+Data/Sample6.jpg 160 11 2
+Data/Sample7.jpg 150 3 3
+Data/Sample8.jpg 190 11 3
+Data/Sample9.jpg 180 9 3
+Data/Sample10.jpg 180 12 3

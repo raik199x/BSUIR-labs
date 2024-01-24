@@ -1,0 +1,1 @@
+../generic-msp430-gcc.cmake

@@ -1,0 +1,51 @@
+#include <Wire.h>                   // подключаем библиотеку для работы с шиной I2C
+#include <iarduino_I2C_connect.h>  // подключаем библиотеку для соединения arduino по шине I2C
+const int P[] = {5, 4, 3, 2};     // выводы строк
+const int M[] = {9, 8, 7, 6};    // выводы столбцов
+const char k4x4 [4][4] = {      // символы на клавиатуре
+  {'1', '2', '3', '4'},
+  {'5', '6', '8', '9'},
+  {'A', 'B', 'C', 'D'},
+  {'E', 'F', 'G', 'H'}
+};
+iarduino_I2C_connect I2C2; // объявляем переменную для работы c библиотекой iarduino_I2C_connect
+
+void setup() {
+
+  for (int i = 0; i <= 3; i++) {  // выставляем выводы строк на выход, столбцов на вход
+    pinMode(P[i], OUTPUT);
+    pinMode(M[i], INPUT_PULLUP);
+    digitalWrite(P[i], HIGH);
+  }
+  Wire.setClock(400000);                              // устанавливаем скорость передачи данных по шине I2C = 400кБит/с
+  Wire.begin();                                       // инициируем подключение к шине I2C в качестве ведущего (master) устройства
+  pinMode(PIN_Button_master, INPUT);                  // Устанавливаем режим работы вывода собственной кнопки, как вход
+  Serial.begin(9600);
+  Serial.println("begin");
+}
+
+void loop() {
+  char a = GetKey4x4();             // опрашиваем клавиатуру
+  if (a != 0) {                     // если кнопка была нажата выводим ее в порт
+    //Serial.print(a); Debug
+    I2C2.writeByte(0x02,0,a);           // Отправляем состояние собственной кнопки ведомому (адрес ведомого 0x02, номер регистра 0, нажатая кнопка)
+  }
+}
+
+char GetKey4x4() {
+  static unsigned long timer;
+  static char olda;
+  char a = 0;
+  if ((timer + 50) > millis()) return 0;  // пауза для опроса передает 1, сам опрос возврвщает 0 если не нажато или символ, если нажато
+  for (byte p = 0; p <= 3; p++) {    // последовательно выставляем по одной строке в LOW
+    digitalWrite(P[p], LOW);
+    for (byte m = 0; m <= 3; m++) {  // и считываем столбцы вылавнивая где LOW происходит
+      if (!digitalRead(M[m])) {
+        a = k4x4[p][m];             // считываем соотвествующий символ для комбинации столбца и строки
+      }
+    }
+    digitalWrite(P[p], HIGH);       // возвращем строку в HIGH и крутим дальше
+  }
+  timer = millis();
+  return a;
+}

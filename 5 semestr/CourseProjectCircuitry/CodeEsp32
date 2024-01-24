@@ -1,0 +1,75 @@
+#include <FS.h>
+#include <SD.h>
+#include <SPI.h>
+#include <Wire.h>
+#include <driver/i2s.h>
+
+char* readFile(fs::FS &fs, const char * path){
+  File file = fs.open(path);
+  if(!file){
+    Serial.println("Failed to open file for reading");
+    return;
+  }
+
+  Serial.print("Read from file: ");
+  int length = 0;
+  char *fileContent = (char*)malloc(1);
+  while(file.available()){
+    fileContent[length] = file.read();
+    fileContent = (char*)realloc(fileContent, ++length);
+  }
+  fileContent = (char*)realloc(fileContent, ++length);
+  fileContent[length] = '\0';
+  file.close();
+  return fileContent;
+}
+
+char receiveEvent(int howMany){
+  while(1 < Wire.available()){	 // loop through all but the last
+    char c = Wire.read();	// receive byte as a character
+  }
+
+  char x = Wire.read();      // receive byte as an char
+  if(!x){
+	return 'z';
+  }
+  //Serial.println(x);      // DEBUG
+  return x;
+
+}
+
+void setup(){
+  Serial.begin(115200);
+  if(!SD.begin(5)){
+    Serial.println("Card Mount Failed");
+    return;
+  }
+
+  uint8_t cardType = SD.cardType();
+  if(cardType == CARD_NONE){
+    Serial.println("No SD card attached");
+    return;
+  }
+
+  Wire.begin(4);                 // join i2c bus with address #4
+  Wire.onReceive(receiveEvent); // register event
+
+  i2s_install();
+  i2s_setpin();
+}
+
+void loop(){
+  char fileName[5];
+  char filename[0] = receiveEvent(1);
+  if(filename[0] == 'z'){
+	return;
+  }
+  filename[1] = '.'; filename[2] = 'm'; filename[3] = 'p'; filename[4] = '3';
+  char *file = readFile(SD, fileName);
+  int bytes = 0;
+  while(file[bytes] != '\0'){
+	bytes++;
+  }
+  i2s_write_bytes(I2S_NUM_0, file, bytes, portMAX_DELAY); 
+  free(file); 
+}
