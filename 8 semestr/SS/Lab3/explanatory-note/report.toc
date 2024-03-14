@@ -1,0 +1,19 @@
+\thispagestyle {empty}
+\selectlanguage *{russian}
+\contentsline {section}{\numberline {1}Задание на лабораторную работу}{3}{section.0.1}%
+\contentsline {subsection}{\numberline {1.1}Цель работы}{3}{subsection.0.1.1}%
+\contentsline {subsection}{\numberline {1.2}Исходные данные к работе}{3}{subsection.0.1.2}%
+\contentsline {section}{\numberline {2}Выполнение работы}{4}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}Настройка FC SAN}{4}{subsection.0.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Определение мировых имён портов хранения и сведение их в таблицу}{4}{subsubsection.0.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Определение мировых имён портов хоста-инициатора и сравнение полученных результатов}{5}{subsubsection.0.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Предложение изменений, которые, возможно, необходимо внести в конфигурацию}{6}{subsubsection.0.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}Установка используемого ПО}{6}{subsection.0.2.2}%
+\contentsline {subsection}{\numberline {2.3}Исследование FC SAN Trace}{7}{subsection.0.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Ответ на вопрос <<Что такое FLOGI?>>}{7}{subsubsection.0.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Ответ на вопрос <<Какое мировое имя у первого порта принадлежащего Fibre Channel Fabric?>>}{7}{subsubsection.0.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Ответ на вопрос <<Почему поле идентификатора источника (S\_ID) кадра FLOGI содержит одни нули?>>}{8}{subsubsection.0.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Ответ на вопрос <<Какой адрес назначен первому порту принадлежащему Fibre Channel Fabric?>>}{8}{subsubsection.0.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}Ответ на вопрос <<Какое шестнадцатеричное представление FC-4 TYPE запрашивается для заданного кадра и какой протокол оно представляет?>>}{9}{subsubsection.0.2.3.5}%
+\contentsline {subsubsection}{\numberline {2.3.6}Ответ на вопрос <<Какой сервис ответственен за GID\_FT (Get Port IDs) запрос?>>}{9}{subsubsection.0.2.3.6}%
+\contentsline {section}{Заключение}{10}{section*.10}%

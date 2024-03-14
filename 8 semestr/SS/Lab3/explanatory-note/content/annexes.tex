@@ -1,0 +1,32 @@
+% Configure code listing
+\lstset{
+	basicstyle=\fontsize{11pt}{13pt}\ttfamily,
+	linewidth=\linewidth,
+	numbers=left,
+	numberstyle=\small,
+	stepnumber=1,
+	numbersep=11pt,
+	xleftmargin=0pt,
+	tabsize=4,
+}
+% Annex page counters
+\newcounter{overwrite}
+\newcounter{restore}
+\setcounter{overwrite}{\value{page}}
+% Annex page numbering
+% \def\appendixnumbering{\pagestyle{plain}\setcounter{restore}{\value{page}}\stepcounter{overwrite}\setcounter{page}{\value{overwrite}}\stepcounter{restore}}
+% \def\restorenumbering{\pagestyle{empty}\setcounter{page}{\value{restore}}}
+
+% \annex{Исходный текст модуля SN74}
+% \appendixnumbering\label{sec::appendix_a}\newpage\restorenumbering
+
+% Файл `SN74.vhd' содержит следующий код:
+
+% \lstinputlisting{code/SN74.vhd}
+
+% \annex{Исходный текст модуля Behavioural}
+% \appendixnumbering\label{sec::appendix_b}\newpage\restorenumbering
+
+% Файл `Behavioural.vhd' содержит следующий код:
+
+% \lstinputlisting{code/Behavioural.vhd}

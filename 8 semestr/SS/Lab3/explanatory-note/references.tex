@@ -1,0 +1,14 @@
+% Зачем: Изменение надписи для списка литературы
+% Почему: Пункт 2.8.1 Требований по оформлению пояснительной записки.
+\renewcommand{\bibname}{Список использованных источников}
+\renewcommand{\bibsection}{\sectioncentered*{\bibname}}
+
+\pagebreak
+
+% исправляет нумерацию в документе и исправляет гиперссылки в pdf
+% Based on https://tex.stackexchange.com/a/199385/139966
+\addtocline{section}{\texorpdfstring{\MakeUppercase \bibname}{\bibname}}
+
+% Зачем: Печать списка литературы. База данных литературы - файл bibliography_database.bib
+
+\bibliography{bibliography_database}

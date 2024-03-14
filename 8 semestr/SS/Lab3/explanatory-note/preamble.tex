@@ -1,0 +1,845 @@
+% !TeX spellcheck = russian-aot-ieyo
+% Зачем: Определяет класс документа (То, как будет выглядеть документ)
+% Примечание: параметр draft помечает строки, вышедшие за границы страницы, прямоугольником, в финальной версии его нужно удалить.
+\documentclass[a4paper,14pt,russian,oneside,final]{extreport}
+
+% Зачем: Удобная верстка многострочных формул, масштабирующийся текст в формулах, формулы в рамках и др
+% tbtags для расположения номеров формул на нижней строке:
+% https://tex.stackexchange.com/a/109180/139966
+\usepackage[tbtags]{amsmath}
+
+% Зачем: использование Times New Roman в формулах для всего
+%   И греческие буквы типа Regular по умолчанию
+% !!! данный пакет должен подключаться раньше polyglossia
+%% Подробнее тут: https://tex.stackexchange.com/a/43419/139966
+\usepackage{mathspec}
+\setmathsfont(Latin,Digits){Times New Roman}
+\setmathsfont(Greek)[Uppercase=Regular,Lowercase=Regular]{Times New Roman}
+
+% Поддержка русского языка (XeLaTeX)
+%% Для включения переносов в английском поместите английский текст в секцию \textenglish.
+%%    Например, "привет \textenglish{Hello world} еще привет"
+\usepackage{polyglossia}   %% загружает пакет многоязыковой верстки
+\setdefaultlanguage{russian}  %% устанавливает главный язык документа
+    %\setdefaultlanguage[babelshorthands=true]{russian}  %% вместо предыдущей строки; доступны команды из пакета babel для русского языка
+\setotherlanguage{english} %% объявляет второй язык документа
+\defaultfontfeatures{Ligatures={TeX}}  %% свойства шрифтов по умолчанию. Для XeTeX опцию Renderer=Basic можно не указывать, она необходима для LuaTeX
+\setmainfont[Ligatures={TeX,Historic}]{Times New Roman} %% задает основной шрифт документа
+\setromanfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+
+% Зачем: Убирает ошибку ненахождения Cyrillic в Times New Roman
+\newfontfamily\cyrillicfont{Times New Roman} %[Script=Cyrillic]
+\newfontfamily{\cyrillicfontrm}{Times New Roman}
+\newfontfamily{\cyrillicfonttt}{Courier New}
+\newfontfamily{\cyrillicfontsf}{Arial}
+
+% Зачем: для того, чтобы ссылаться на основной документ и части документов
+% \newcommand{\rootPathPrefix}{../}
+% \newcommand{\mainPathPrefix}{\rootPathPrefix main_report/}
+
+% Зачем: Добавляет поддержу дополнительных размеров текста 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, and 20pt.
+% Почему: Пункт 2.1.1 Требований по оформлению пояснительной записки.
+\usepackage{extsizes}
+
+% Зачем: Длина, примерно соответствующая 5 символам
+% Почему: Требования содержат странное требование про отступы в 5 символов (для не моноширинного шрифта :| )
+\newlength{\fivecharsapprox}
+\setlength{\fivecharsapprox}{1.25cm}
+
+
+% Зачем: Добавляет отступы для абзацев.
+% Почему: Пункт 2.1.3 Требований по оформлению пояснительной записки.
+\usepackage{indentfirst}
+\setlength{\parindent}{\fivecharsapprox} % Примерно соответствует 5 символам.
+
+
+% Зачем: Настраивает отступы от границ страницы.
+% Почему: Пункт 2.1.2 Требований по оформлению пояснительной записки.
+%% Специфические к используемому принтеру + ОС
+\usepackage[left=3cm,top=1.9cm,right=1.5cm,bottom=2.795cm]{geometry}
+% \usepackage[left=3cm,top=1.9cm,right=1.5cm,bottom=2.795cm, showframe]{geometry}
+% Стандарт для магистерской
+% \usepackage[left=3cm,top=1.9cm,right=1.0cm,bottom=2.095cm]{geometry}
+
+% Зачем: явно выставляем, чтобы отступ до низа листа был 1,7 см
+%% (хотя будет он больше в документе tex-а)
+\setlength{\footskip}{0.95cm}
+% \setlength{\footskip}{0.85cm}
+
+% Зачем: Настраивает межстрочный интервал, для размещения 40 +/- 3 строки текста на странице.
+% Почему: Пункт 2.1.1 Требований по оформлению пояснительной записки.
+\usepackage[nodisplayskipstretch]{setspace}
+\setstretch{1.0}
+%\onehalfspacing
+
+% Зачем: Выбор шрифта по-умолчанию.
+% Почему: Пункт 2.1.1 Требований по оформлению пояснительной записки.
+% Примечание: В требованиях не указан, какой именно шрифт использовать. По традиции используем TNR.
+\renewcommand{\rmdefault}{ftm} % Times New Roman
+
+
+% Зачем: Отключает использование изменяемых межсловных пробелов.
+% Почему: Так не принято делать в текстах на русском языке.
+\frenchspacing
+
+
+% Зачем: Сброс счетчика сносок для каждой страницы
+% Примечание: в "Требованиях по оформлению пояснительной записки" не указано, как нужно делать, но в других БГУИРовских документах рекомендуется нумерация отдельная для каждой страницы
+\usepackage{perpage}
+\MakePerPage{footnote}
+
+
+% Зачем: Добавляет скобку 1) к номеру сноски
+% Почему: Пункты 2.9.2 и 2.9.1 Требований по оформлению пояснительной записки.
+\makeatletter
+\def\@makefnmark{\hbox{\@textsuperscript{\normalfont\@thefnmark)}}}
+\makeatother
+
+
+% Зачем: Расположение сносок внизу страницы
+% Почему: Пункт 2.9.2 Требований по оформлению пояснительной записки.
+\usepackage[bottom]{footmisc}
+
+% Зачем: Пункты (в терминологии требований) в терминологии TeX subsubsection должны нумероваться
+% Почему: Пункт 2.2.3 Требований по оформлению пояснительной записки.
+\setcounter{secnumdepth}{5}
+
+
+% Зачем: Настраивает отступ между таблицей с содержанием и словом СОДЕРЖАНИЕ
+% Почему: Пункт 2.2.7 Требований по оформлению пояснительной записки.
+\usepackage{tocloft}
+\setlength{\cftbeforetoctitleskip}{-1.3cm}
+\setlength{\cftaftertoctitleskip}{1em}
+
+% Зачем: Определяет отступы слева для записей в таблице содержания.
+% Почему: Пункт 2.2.7 Требований по оформлению пояснительной записки.
+\makeatletter
+\renewcommand{\l@section}{\@dottedtocline{1}{0.5em}{1.2em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.7em}{2.0em}}
+
+\makeatother
+
+
+% Зачем: Работа с колонтитулами
+\usepackage{fancyhdr} % пакет для установки колонтитулов
+\pagestyle{fancy} % смена стиля оформления страниц
+
+
+% Зачем: Нумерация страниц располагается справа снизу страницы
+% Почему: Пункт 2.2.8 Требований по оформлению пояснительной записки.
+\fancyhf{} % очистка текущих значений
+\fancyfoot[R]{\thepage} % установка верхнего колонтитула
+\renewcommand{\footrulewidth}{0pt} % убрать разделительную линию внизу страницы
+\renewcommand{\headrulewidth}{0pt} % убрать разделительную линию вверху страницы
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \rfoot{\thepage}}
+
+\usepackage{titlesec}
+
+% Зачем: Задает стиль заголовков раздела жирным шрифтом, прописными буквами, без точки в конце
+% Почему: Пункты 2.1.1, 2.2.5, 2.2.6 и ПРИЛОЖЕНИЕ Л Требований по оформлению пояснительной записки.
+\makeatletter
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesection{\arabic{section}}
+\makeatother
+
+% Для диссертации
+%% Now they are equal
+% \let\sectioncentered\section
+% Для диплома
+% Auto adding new page for every section
+\titleclass{\sectioncentered}{top}[\chapter]
+
+\titleformat{\sectioncentered}
+  {\pretolerance=10000\centering\normalfont\bfseries}
+  {\thesection}
+  % Зачем: отступ от номера до заголовка должен составлять 1 пробел.
+  % Для Times New Roman это приблизительно 0.5em
+  {0.5em}
+  {\MakeUppercase}
+
+% Отступы заголовка раздела
+\titlespacing{\sectioncentered}
+  {0em}
+  % For returning title position on page start
+  {-1.5em plus -1ex minus -.2ex}
+  {1em plus .2ex}
+
+% Зачем: Задает стиль заголовков разделов
+% (эмулируем через них главы из-за обратной совместимости)
+% Для диплома
+\titleformat{\section}
+  {\pretolerance=10000\filright\normalfont\bfseries}
+  {\thesection}
+  % Зачем: отступ от номера до заголовка должен составлять 1 пробел.
+  % Для Times New Roman это приблизительно 0.5em
+  {0.5em}
+  {\MakeUppercase}
+% Для диссертации
+% \titleformat{\section}[display]
+%   {\pretolerance=10000\centering\normalfont\bfseries\large}
+%   {ГЛАВА \thesection}
+%   {0em}
+%   {\MakeUppercase}
+
+% Auto adding new page for every section
+\titleclass{\section}{top}
+
+% Отступы заголовка раздела
+\titlespacing{\section}
+  % Для диплома
+  % First line margin
+  {\fivecharsapprox}
+  % % Для диссертации
+  % {0em}
+  % For returning title position on page start
+  {-1.5em plus -1ex minus -.2ex}
+  {1em plus .2ex}
+
+% Зачем: Задает стиль заголовков подразделов
+% Почему: Пункты 2.1.1, 2.2.5 и ПРИЛОЖЕНИЕ Л Требований по оформлению пояснительной записки.
+\titleformat{\subsection}
+  % Для диплома
+  {\pretolerance=10000\filright\normalfont\bfseries}
+  % Для диссертации
+  % {\pretolerance=10000\filright\normalfont\bfseries\large}
+  {\thesubsection}
+  % Зачем: отступ от номера до заголовка должен составлять 1 пробел.
+  % Для Times New Roman это приблизительно 0.5em
+  {0.5em}
+  {}
+
+% Отступы заголовка подраздела
+\titlespacing{\subsection}
+  % First line margin
+  {\fivecharsapprox}
+  {1em plus 1ex minus .2ex}
+  {1em plus .2ex}
+
+% Зачем: Задает стиль заголовков пунктов
+% Почему: Пункты 2.1.1, 2.2.5 и ПРИЛОЖЕНИЕ Л Требований по оформлению пояснительной записки.
+\titleformat{\subsubsection}
+  {\pretolerance=10000\filright\normalfont\normalsize\bfseries}
+  % Только номер делаем жирным
+  {\textbf{\thesubsubsection}}
+  % Зачем: отступ от номера до заголовка должен составлять 1 пробел.
+  % Для Times New Roman это приблизительно 0.5em
+  {0.5em}
+  {}
+
+% Отступы заголовка подраздела
+\titlespacing{\subsubsection}
+  % First line margin
+  {\fivecharsapprox}
+  {1em plus 1ex minus .2ex}
+  {1em plus .2ex}
+
+% Используйте \paragraph для заголовка 4 уровня:
+% https://tex.stackexchange.com/a/60212/139966
+
+% Зачем: заголовки без нумерации, но с поддержкой содержания
+\def\sectionToc#1{\section*{#1}\addtocline{section}{#1}}
+\def\sectionCenteredToc#1{\sectioncentered*{#1}\addtocline{section}{#1}}
+
+% Зачем: форматирование даты
+\usepackage[ddmmyy]{datetime}
+\renewcommand{\dateseparator}{.}
+
+% Работа со строками
+\usepackage{xstring}
+
+% #1 = day
+% #2 = month
+% #3 = year
+\def\printdate#1#2#3{\ddmmyyyydate\formatdate{#1}{#2}{#3}}
+
+% Парсит формат даты "yyyy-mm-dd" и печатает его по ГОСТу
+\def\parsedate#1{%
+  \StrBefore[1]{#1}{-}[\myYear]%
+  \StrBetween[1,2]{#1}{-}{-}[\myMonth]%
+  \StrBehind[2]{#1}{-}[\myDay]%
+  \printdate{\myDay}{\myMonth}{\myYear}%
+}
+
+\def\BibUrlRus#1{Режим доступа~: \url{#1}}
+\def\BibDateRus#1{Дата доступа~: \parsedate{#1}}
+\def\BibTitleSuffixRus{ [Электронный ресурс]}
+% Используем русский текст в английских источниках
+\def\BibUrl#1{\BibUrlRus{#1}}
+\def\BibDate#1{\BibDateRus{#1}}
+\def\BibTitleSuffix{\BibTitleSuffixRus}
+% Используем английский текст в английских источниках
+% \def\BibUrl#1{Mode of access~: \url{#1}}
+% \def\BibDate#1{Date of access~: \parsedate{#1}}
+% \def\BibTitleSuffix{ [Electronic resource]}
+\def\BibTitleFormat#1{\StrSubstitute{#1}{ - }{ --- }}
+
+% Зачем: Пакет для вставки картинок
+% Примечание: Объяснение, зачем final - http://tex.stackexchange.com/questions/11004/why-does-the-image-not-appear
+\usepackage[final]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
+
+
+% Зачем: Директория в которой будет происходить поиск картинок
+\graphicspath{{images/}{images/}}
+
+% Зачем: отступы в таблицах и рисунках
+\setlength{\belowcaptionskip}{0pt}
+\setlength{\abovecaptionskip}{0pt}
+
+% Зачем: убирает отступ до формулы (полезно для новых страниц)
+%% #1 - baseline skip scale (2 by default)
+\newcommand\removeEquantionBeforeSpace[1][2]{
+  \mbox{}\par
+  \kern-#1\baselineskip
+}
+
+% Зачем: Добавление подписей к рисункам
+\usepackage[nooneline]{caption}
+\usepackage{subcaption}
+
+% Зачем: чтобы работала \No в новых латехах
+\DeclareRobustCommand{\No}{\ifmmode{\nfss@text{\textnumero}}\else\textnumero\fi}
+
+% Зачем: поворот ячеек таблиц на 90 градусов
+\usepackage{rotating}
+\DeclareRobustCommand{\povernut}[1]{\begin{sideways}{#1}\end{sideways}}
+
+
+% Зачем: когда в формулах много кириллических символов команда \text{} занимает много места
+\DeclareRobustCommand{\x}[1]{\text{#1}}
+
+% Зачем: Задание подписей, разделителя и нумерации частей рисунков
+% Почему: Пункт 2.5.5 Требований по оформлению пояснительной записки.
+\DeclareCaptionLabelFormat{stbfigure}{\\Рисунок \arabic{section}.\arabic{figure}}
+\DeclareCaptionLabelFormat{stbsubfigure}{\\\asbuk{subfigure})}
+\DeclareCaptionLabelFormat{stbtable}{Таблица \arabic{section}.\arabic{table}}
+\DeclareCaptionLabelSeparator{stb}{~--~}
+\captionsetup{labelsep=stb}
+\captionsetup[figure]{labelformat=stbfigure,justification=centering}
+\captionsetup[subfigure]{labelformat=stbsubfigure}
+% format=... based on https://tex.stackexchange.com/a/185788/139966
+\captionsetup[table]{labelformat=stbtable,justification=raggedright,aboveskip=0pt,format=hang}
+
+% Зачем: Окружения для оформления формул
+% Почему: Пункт 2.4.7 требований по оформлению пояснительной записки и специфические требования различных кафедр
+% Пример использования смотри в course_content.tex, строка 5
+\usepackage{calc}
+\newlength{\lengthWordWhere}
+\settowidth{\lengthWordWhere}{где}
+\newenvironment{explanationx}
+    {%
+    %%% Следующие строки определяют специфические требования разных редакций стандартов. Раскомментируйте нужную строку
+    %% стандартный абзац, СТП-01 2010
+    %\begin{itemize}[leftmargin=0cm, itemindent=\parindent + \lengthWordWhere + \labelsep, labelsep=\labelsep]
+    %% без отступа, СТП-01 2013
+    \begin{itemize}[leftmargin=0cm, itemindent=\lengthWordWhere + \labelsep , labelsep=\labelsep]%
+    \renewcommand\labelitemi{}%
+    }
+    {%
+    %\\[\parsep]
+    \end{itemize}
+    }
+
+% Старое окружение для "где". Сохранено для совместимости
+\usepackage{tabularx}
+
+\newenvironment{explanation}
+    {
+    %%% Следующие строки определяют специфические требования разных редакций стандартов. Раскомментируйте нужные 2 строки
+    %% стандартный абзац, СТП-01 2010
+    %\par
+    %\tabularx{\textwidth-\fivecharsapprox}{@{}ll@{ --- } X }
+    %% без отступа, СТП-01 2013
+    \noindent
+    \tabularx{\textwidth}{@{}ll@{ --- } X }
+    }
+    {
+    \\[\parsep]
+    \endtabularx
+    }
+
+
+% Зачем: Окружения <<теорема>>, <<лемма>>
+\usepackage{amsthm}
+
+
+% Зачем: Производить арифметические операции во время компиляции TeX файла
+\usepackage{calc}
+
+% Зачем: Производить арифметические операции во время компиляции TeX файла
+\usepackage{fp}
+
+% Зачем: Пакет для работы с перечислениями
+\usepackage{enumitem}
+\makeatletter
+ \AddEnumerateCounter{\asbuk}{\@asbuk}{щ)}
+\makeatother
+
+
+% Зачем: Устанавливает символ начала простого перечисления
+% Почему: Пункт 2.3.5 Требований по оформлению пояснительной записки.
+\setlist{nolistsep}
+
+
+% Зачем: Устанавливает символ начала именованного перечисления
+% Почему: Пункт 2.3.8 Требований по оформлению пояснительной записки.
+\renewcommand{\labelenumi}{\asbuk{enumi})}
+\renewcommand{\labelenumii}{\arabic{enumii})}
+
+% Зачем: Устанавливает отступ от границы документа до символа списка, чтобы этот отступ равнялся отступу параграфа
+% Почему: Пункт 2.3.5 Требований по оформлению пояснительной записки.
+
+\newlength{\lengthItemMarker}
+\settowidth{\lengthItemMarker}{--}
+
+\setlist[itemize,0]{itemindent=\parindent + 2.2ex,leftmargin=0ex,label=--}
+\setlist[itemize,2]{itemindent=\parindent + 3.5ex + \lengthItemMarker,leftmargin=0ex,label=--}
+\setlist[enumerate,1]{itemindent=\parindent + 2.7ex,leftmargin=0ex}
+\setlist[enumerate,2]{itemindent=\parindent + \parindent - 2.7ex}
+
+% Зачем: добавление возможности создания нумерованного списка
+\newenvironment{enumerate_num}
+  {\begin{enumerate}[label=\arabic*., ref=\arabic*, align=left,
+    labelindent=\fivecharsapprox,
+    leftmargin=*, itemindent=*]}
+  {\end{enumerate}}
+
+% Зачем: добавление возможности создания нумерованного списка по шагам
+\newenvironment{enumerate_step}
+  {\begin{enumerate}[label=Шаг \arabic*., ref=\arabic*,
+    labelindent=\fivecharsapprox,
+    align=left,
+    leftmargin=*, itemindent=*]}
+  {\end{enumerate}}
+
+% Зачем: добавление возможности создания вложенного нумерованного списка с  "жирными" цифрами
+\newlength{\taskLiskSubsectionDelta}
+\setlength{\taskLiskSubsectionDelta}{0.75cm}
+\newlength{\taskLiskSectionItemLeftIndent}
+\setlength{\taskLiskSectionItemLeftIndent}{0.5cm}
+\newenvironment{enumerate_nest_bold_num}
+  {\begin{enumerate}[label*=\textbf{.\arabic*},
+    leftmargin=*, itemindent=0cm]}
+  {\end{enumerate}}
+
+% Зачем: для основного списка из листа задания возможность добавления встроенных элементов без отступов перед ними
+\newenvironment{enumerate_for_empty}
+  {\begin{enumerate}[leftmargin=0cm, itemindent=0cm]}
+  {\end{enumerate}}
+
+% Зачем: Включение номера раздела в номер формулы. Нумерация формул внутри раздела.
+\AtBeginDocument{\numberwithin{equation}{section}}
+
+% Зачем: Включение номера раздела в номер таблицы. Нумерация таблиц внутри раздела.
+\AtBeginDocument{\numberwithin{table}{section}}
+
+% Зачем: Включение номера раздела в номер рисунка. Нумерация рисунков внутри раздела.
+\AtBeginDocument{\numberwithin{figure}{section}}
+
+\let\oldequation=\equation
+\let\endoldequation=\endequation
+\renewenvironment{equation}{\vspace{-0.3em}\begin{oldequation}}{\end{oldequation}\vspace{-0.9em}}
+
+% Зачем: Дополнительные возможности в форматировании таблиц
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{array}
+
+
+% Зачем: "Умная" запятая в математических формулах. В дробных числах не добавляет пробел
+% Почему: В требованиях не нашел, но в русском языке для дробных чисел используется {,} а не {.}
+\usepackage{icomma}
+
+% Зачем: макрос для печати римских чисел
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+% Зачем: Управление выводом чисел.
+\usepackage{sistyle}
+\SIdecimalsign{,}
+
+% Зачем: inline-комментирование содержимого.
+\newcommand{\ignore}[2]{\hspace{0in}#2}
+
+
+% Зачем: Возможность комментировать большие участки документа
+\usepackage{verbatim}
+
+
+\usepackage{xcolor}
+
+
+% Зачем: Оформление листингов кода
+% Примечание: final нужен для переопределения режима draft, в котором листинги не выводятся в документ.
+\usepackage[final]{listings}
+
+\renewcommand{\lstlistingname}{Листинг}
+
+\usepackage[normalem]{ulem}
+
+\usepackage[final,hidelinks]{hyperref}
+% Делаем все \url с обычным шрифтом
+\renewcommand{\UrlFont}{}
+% \renewcommand{\UrlFont}{\small\rmfamily\tt}
+
+\usepackage[square,numbers,sort&compress]{natbib}
+\setlength{\bibsep}{0em}
+
+% Магия для подсчета разнообразных объектов в документе
+\usepackage{lastpage}
+\usepackage{totcount}
+\regtotcounter{section}
+
+\usepackage{etoolbox}
+
+\newcounter{totfigures}
+\newcounter{tottables}
+\newcounter{totreferences}
+\newcounter{totequation}
+
+\providecommand\totfig{}
+\providecommand\tottab{}
+\providecommand\totref{}
+\providecommand\toteq{}
+
+\makeatletter
+\AtEndDocument{%
+  \addtocounter{totfigures}{\value{figure}}%
+  \addtocounter{tottables}{\value{table}}%
+  \addtocounter{totequation}{\value{equation}}
+  \immediate\write\@mainaux{%
+    \string\gdef\string\totfig{\number\value{totfigures}}%
+    \string\gdef\string\tottab{\number\value{tottables}}%
+    \string\gdef\string\totref{\number\value{totreferences}}%
+    \string\gdef\string\toteq{\number\value{totequation}}%
+  }%
+}
+\makeatother
+
+\pretocmd{\section}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
+\pretocmd{\section}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
+\pretocmd{\section}{\addtocounter{totequation}{\value{equation}}\setcounter{equation}{0}}{}{}
+\pretocmd{\bibitem}{\addtocounter{totreferences}{1}}{}{}
+
+
+
+% Для оформления таблиц, не помещающихся на 1 страницу
+\usepackage{longtable}
+
+% Для включения pdf документов в результирующий файл
+\usepackage{pdfpages}
+
+% Для использования знака градуса и других знаков
+% http://ctan.org/pkg/gensymb
+\usepackage{gensymb}
+
+% Зачем: преобразовывать текст в верхний регистр командой MakeTextUppercase
+\usepackage{textcase}
+
+% Зачем: Переносы в словах с тире.
+% Тире в словах заменяем на \hyph: аппаратно\hyphпрограммный.
+% https://stackoverflow.com/a/2193427/6818663
+\def\hyph{-\penalty0\hskip0pt\relax}
+
+% Добавляем абзацный отступ для библиографии
+% https://github.com/mstyura/bsuir-diploma-latex/issues/19
+\setlength\bibindent{\fivecharsapprox}
+
+\makeatletter
+% Зачем: устанавливаем, как оформлять индекс
+% Зачем: в списке литературы выровнять индексы по левому краю (\hfill)
+\renewcommand\@biblabel[1]{[#1]\hspace*{\fill}\hspace{0.5em}}
+
+% Зачем: устанавливаем, как оформлять индекс для своей литературы
+% Зачем: в списке литературы выровнять индексы по левому краю (\hfill)
+\newcommand\@biblabelMy[1]{[#1 -- А.]\hspace*{\fill}\hspace{0.5em}}
+\makeatother
+
+% \z@ == 0cm
+\makeatletter
+\renewcommand\NAT@bibsetnum[1]{%
+  % alignment, based on first? element, not on widest
+  % \settowidth\labelwidth{\@biblabel{#1}}%
+  \setlength{\leftmargin}{0cm}%
+  \setlength{\itemindent}{\bibindent+\labelwidth}%
+  % \setlength{\itemindent}{\labelwidth}%
+  \addtolength{\labelsep}{-0.5em}%
+  \setlength{\itemsep}{\bibsep}\setlength{\parsep}{\z@}%
+  % not tested for openbib
+   \ifNAT@openbib
+     \addtolength{\leftmargin}{\bibindent}%
+     \setlength{\itemindent}{-\bibindent}%
+     \setlength{\listparindent}{\itemindent}%
+     \setlength{\parsep}{10pt}%
+   \fi
+}
+\makeatother
+
+\lstdefinestyle{cstyle}{
+   % Для выравнимания отступов с таблицами и картинками
+   aboveskip=1ex + 0.5em,
+   belowskip=1ex + 0.5em,
+   xleftmargin=\fivecharsapprox,
+   basicstyle=\ttfamily,
+   breaklines=true,
+   % Убирает разрывы по запятым: https://tex.stackexchange.com/a/64782/139966
+   % breakatwhitespace,
+   % Убирает символы, по которым не делать разбивку: https://tex.stackexchange.com/a/140725/139966
+   alsoletter={()[]},
+   tabsize=8,
+}
+\lstset{style=cstyle}
+\let\OldTexttt\texttt
+\renewcommand{\texttt}[1]{\OldTexttt{\fontencoding{T1}\ttfamily{#1}}}
+
+% Зачем: убрать выход текста за границы страницы при переносе за счет увеличения ширины пробелов (тут в 2 раза)
+% \newdimen\origiwstr
+% \origiwstr=\fontdimen3\font
+% \fontdimen3\font=2\origiwstr
+
+% Зачем отключает 99% переносов (поэтому нужно все-таки проверить)
+%% Подробнее тут: https://tex.stackexchange.com/a/88993/139966
+%% Подробнее тут для заголовков: https://tex.stackexchange.com/a/31309/139966
+%% \fontdimen3\font = 1.13873cm
+\fontdimen3\font=18\fontdimen3\font
+
+% Зачем: смотреть размер dimen в см
+%% Вызов: \convertto{cm}{\fontdimen3\font}
+\makeatletter
+\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1}
+\makeatother
+
+% Зачем: для генерации автоматических окончаний
+%% Подключен выше
+% \usepackage{xstring}
+
+% Зачем: автоматические окончания
+%% #1 значение счетчика строкой
+%% #2 окончание для остатка 1 по модулю 10
+%% #3 окончание для остатка 2-4 по модулю 10
+%% #4 окончание для остатка 5-9 и 0 по модулю 10 + все числа от 10 до 20 по модулю 100
+\newcommand{\insertNumSomethingText}[4]{%
+#1 % вывод количества (числом) + пробел
+\StrLen{#1}[\currLen]% Длина строки
+\FPeval{\almostLastPos}{round(\currLen - 1, 0)}% Позиция предпоследнего символа
+\StrChar{#1}{\almostLastPos}[\almostLastSymbol]% Предпоследний символ
+\StrRight{#1}{1}[\lastSymbol]% Получаем последнюю цифру
+\IfStrEq{\almostLastSymbol}{1}%
+  {#4}
+  {%
+    \IfStrEqCase{\lastSymbol}{% вывод окончания
+      {0}{#4}%
+      {1}{#2}%
+      {2}{#3}%
+      {3}{#3}%
+      {4}{#3}%
+      {5}{#4}%
+      {6}{#4}%
+      {7}{#4}%
+      {8}{#4}%
+      {9}{#4}%
+    }%
+    [{Unsupported number format}]%Default string value
+  }%
+}
+
+% Зачем: вывод количества рисунков с окончанием
+\newcommand{\insertNumFiguresText}{%
+\insertNumSomethingText{\totfig}{рисунок}{рисунка}{рисунков}%
+}
+
+% Зачем: вывод количества таблиц с окончанием
+\newcommand{\insertNumTablesText}{%
+\insertNumSomethingText{\tottab}{таблица}{таблицы}{таблиц}%
+}
+
+\usepackage{refcount}
+
+% Зачем: вывод количества страниц документа с окончанием
+\newcommand{\insertNumPagesText}{%
+\insertNumSomethingText{\getpagerefnumber{LastPage}}{страница}{страницы}{страниц}%
+}
+
+% Зачем: счетчик для библиографии (литературных источников)
+\usepackage{totcount}
+\newtotcounter{citenum}
+\def\oldcite{}
+\let\oldcite=\bibcite
+\def\bibcite{\stepcounter{citenum}\oldcite}
+
+% Зачем: вывод количества элементов библиографии с окончанием
+\newcommand{\insertNumBibElementsText}{%
+\insertNumSomethingText{\total{citenum}}{литературный источник}{литературных источника}{литературных источников}%
+}
+
+% Зачем: допустимые буквы для приложений [2.7.2]
+\makeatletter
+\def\@annexAlph#1{%
+  \ifcase#1\or А\or Б\or В\or Г\or Д\or Е\or Ж\or И\or К\or Л\or%
+  М\or Н\or П\or Р\or С\or Т\or У\or Ф\or Х\or Ц\or Ш\or Щ\or Э\or%
+  Ю\or Я\else\@ctrerr\fi%
+}
+\def\annexAlph#1{\expandafter\@annexAlph\csname c@#1\endcsname}
+\makeatother
+
+% Зачем: счетчик для приложений
+\newtotcounter{equation_annex}
+
+% Зачем: добавление заголовка в содержание с работающей гиперссылкой на него
+\newcommand{\addtocline}[2]{
+  % исправляет нумерацию в документе и исправляет гиперссылки в pdf
+  % Очень желательно добавлять перед \section* или аналогичным
+  \phantomsection
+  \addcontentsline{toc}{#1}{#2}
+}
+
+% Зачем: создание заголовка приложения
+% Параметры:
+%% #1 - Заголовок приложения
+\newcommand{\annex}[1]{
+  \newpage
+  \stepcounter{equation_annex}
+  \centerline{\textbf{ПРИЛОЖЕНИЕ \annexAlph{equation_annex}}}
+  \centerline{(\it{обязательное})}
+  \vspace{\baselineskip}
+  \addtocline{section}{ПРИЛОЖЕНИЕ \annexAlph{equation_annex}}
+  \centerline{#1}
+}
+
+% Зачем: вывод количества приложений с окончанием
+\newcommand{\insertNumAnnexesText}{%
+\insertNumSomethingText{\total{equation_annex}}{приложение}{приложения}{приложений}%
+}
+
+% Зачем: список условных сокращений
+\usepackage[russian]{nomencl}
+\makenomenclature
+
+% Установка заголовка
+\renewcommand{\nomname}{УСЛОВНЫЕ СОКРАЩЕНИЯ}
+
+% установка расстояния между элементами в номенклатуре = 0 (из документации)
+\setlength{\nomitemsep}{-\parsep}
+
+% Зачем: установка левого отступа в номенклатуре
+\patchcmd{\thenomenclature}
+  {\leftmargin\labelwidth}
+  {\leftmargin\labelwidth\itemindent\fivecharsapprox }
+  {}{}
+
+% Зачем: зануление отступа после сокращения
+\patchcmd{\thenomenclature}
+  {\advance\leftmargin\labelsep}
+  {\labelsep=0cm \advance\leftmargin\labelsep}
+  {}{}
+
+%% #1 - short name
+%% #2 - long name
+%% #3 - long name on russian
+\newcommand{\nomenclaturex}[3]{
+  \nomenclature{#1 }{(#2) -- #3}
+}
+
+%% #1 - short name on russian
+%% #2 - long name on russian
+\newcommand{\nomenclatureRus}[2]{
+  % Prefix 0 will move nomenclature in the beginning of an order
+  \nomenclature[0]{#1 }{ -- #2}
+}
+
+% Зачем: обновление форматирования заголовка для номенклатуры
+\makeatletter
+\patchcmd{\thenomenclature}
+  {\tocbasic@listhead{\list@fname}}
+  % Force removing page number
+  % https://tex.stackexchange.com/a/20695/139966
+  {\sectioncentered*{\list@fname}\thispagestyle{empty}}
+  {}{}
+\makeatother
+
+% Зачем: убираем отступ в 1см слева во второй и следующих строках в номенклатуре (отступ label)
+\setlength{\nomlabelwidth}{0pt}
+
+% Убирает ошибки для nomenctl о ненахождении соответствующих команд
+% Это проблема совместимости русской polyglossia и nomencl
+% Подробнее:
+%% https://tex.stackexchange.com/questions/449877/xelatex-scrartcl-setmainlanguagerussian-latex-error-chapterformat-und/449880#449880
+%% https://github.com/reutenauer/polyglossia/issues/210
+\providecommand{\chapterformat}{}
+\providecommand{\sectionformat}{}
+\providecommand{\subsectionformat}{}
+\providecommand{\subsubsectionformat}{}
+\providecommand{\paragraphformat}{}
+\providecommand{\subparagraphformat}{}
+
+% Зачем: убирает нумерацию страниц на листах с содержанием
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+
+% Зачем: устанавливает отступ после рисунков
+%% Подробнее тут: https://tex.stackexchange.com/a/60479/139966
+\setlength{\textfloatsep}{14pt}
+
+% Зачем: решить проблему с переносом URL в библиографии
+%% Подробнее о базовых настройках: https://tex.stackexchange.com/a/102697/139966
+\makeatletter
+\g@addto@macro{\UrlBigBreaks}{%
+  \do\/\do\.\do\?\do\-\do\_\do\,\do\#%
+  }
+\makeatother
+
+% Зачем: возможность разделения на несколько библиографий
+% На основании https://www.overleaf.com/learn/latex/multibib
+% Цитировать что-либо из вспомогательной библиографии: \citeMy{...} вместо \cite{}
+\usepackage{multibib}
+% Только для магистратуры
+% \newcites{My}{Список публикаций соискателя}
+
+% Зачем: Задает стиль библиографии
+% Почему: Пункт 2.8.6 Требований по оформлению пояснительной записки.
+\bibliographystyle{styles/belarus-specific-utf8gost780u}
+% Только для магистратуры
+% \bibliographystyleMy{styles/belarus-specific-utf8gost780u}
+
+% Зачем: возможность использования символов _ внутри \UScore{}
+\DeclareUrlCommand\UScore{\urlstyle{rm}}
+
+% Зачем: поддержка символа "Номер": https://tex.stackexchange.com/a/40565/139966
+\usepackage{textcomp}
+
+% Зачем: улучшаем работу с выравниваниями в таблицах при объединении
+% https://tex.stackexchange.com/a/30557/139966
+% Не поддерживается в контейнере
+% \usepackage{booktabs}
+
+% Зачем: использовать для исправления большого отступа между таблицей и подзаголовком
+\newcommand{\fixTableSectionSpace}{\vspace{-1em}}
+
+% Зачем: подавление висячих строк
+\clubpenalty=10000
+\widowpenalty=10000
+
+% Зачем: заголовок реферата с нужными настройками
+\newcommand{\referenceTitle}{%
+  \sectioncentered*{РЕФЕРАТ}%
+  \label{sec:ref}%
+  \thispagestyle{empty}%
+}
+
+% heavy underline
+\def\heavyunder#1{\uline{#1\hfill\null}}
+\def\todo#1{\textcolor{red}{#1\cite{todo}}}
+
+% float
+\usepackage{float}
+
+% free lines breaking
+\widowpenalty=0
+\clubpenalty=0
