@@ -11,7 +11,7 @@
 <details >
 <summary >First semester</summary >
 
-* [Basic of algorithmization and programming]("./1 semestr/")
+* [Basic of algorithmization and programming](./1 semestr/)
 * [Answers to exams](https://mega.nz/folder/tOBCWJIQ#6VFbbc7J7PVOZAH6HF8JNQ)
 
 </details >
