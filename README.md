@@ -8,22 +8,25 @@
 > but second semester was not recovered, mostly because of windows api,
 > i did not wanted to rewrite programs because it would break "history context"
 
-<details><summary>First semester</summary>
+<details >
+<summary >First semester</summary >
 
-* [Basic of algorithmization and programming](https://github.com/raik199x/student-life/tree/main/1%20semestr)
+* [Basic of algorithmization and programming]("./1 semestr/")
 * [Answers to exams](https://mega.nz/folder/tOBCWJIQ#6VFbbc7J7PVOZAH6HF8JNQ)
 
-</details>
+</details >
 
-<details><summary>Second semester</summary>
+<details >
+<summary >Second semester</summary >
 
 * [Construction of Programs and Programming Languages](https://github.com/raik199x/student-life/tree/main/2%20semestr)
 * [Course Project КПиЯП](https://mega.nz/folder/kfxW1J4T#Ai8xG8GYLUnlqVUZnerRSw)
 * [Answers to exams](https://mega.nz/folder/gXpCjZpY#4sTSBgLJ9jzq-WLlXYVtjQ)
 
-</details>
+</details >
 
-<details><summary>Third semester</summary>
+<details >
+<summary >Third semester</summary >
 
 * [Construction of Programs and Programming Languages](https://github.com/raik199x/student-life/tree/main/3%20semestr) (now with conditions :D)
 * [Course Project CPPL](https://github.com/raik199x/file-manager-for-linux)
@@ -34,7 +37,8 @@
 
 </details>
 
-<details><summary>Fourth semester</summary>
+<details>
+<summary>Fourth semester</summary>
 
 * [Computer System Software](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/CSS)
 * [Personal Computer Architect](https://github.com/raik199x/BSUIR-labs/tree/main/4%20semestr/PCA)
@@ -46,7 +50,8 @@
 
 </details>
 
-<details><summary>Fifth semester</summary>
+<details>
+<summary>Fifth semester</summary>
 
 * [Fundamentals of information security](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/FIS)
 * [Software development and testing technologies](https://github.com/raik199x/BSUIR-labs/tree/main/5%20semestr/SDTT)
@@ -59,7 +64,8 @@
 
 </details>
 
-<details><summary>Sixth semester</summary>
+<details>
+<summary>Sixth semester</summary>
 
 * [Administration of computer systems and networks](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/ACSN)
 * [Digital signal and image processing](https://github.com/raik199x/BSUIR-labs/tree/main/6%20semestr/DSIP)
@@ -71,7 +77,8 @@
 
 </details>
 
-<details><summary>Seventh semester</summary>
+<details>
+<summary>Seventh semester</summary>
 
 * [Сomputer network hardware](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/CNH)
 * [Сomputer network hardware Course project](https://github.com/raik199x/BSUIR-labs/tree/main/7%20semestr/CNHCourseProject)
@@ -87,7 +94,8 @@
 
 </details>
 
-<details><summary>Eighth semester</summary>
+<details>
+<summary>Eighth semester</summary>
 
 * [System software for local computer networks](https://github.com/raik199x/BSUIR-labs/tree/main/8%20semestr/SSfLCN)
 * [Storage systems](https://github.com/raik199x/BSUIR-labs/tree/main/8%20semestr/SS)
