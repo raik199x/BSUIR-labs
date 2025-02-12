@@ -7,7 +7,7 @@ Exceptions::Exceptions(int code){
     this->code = code;
 }
 
-void Exceptions::what_happend(){
+void Exceptions::what_happened(){
     switch (this->code) {
         case 0: cout << "0 exception" << endl; break;
         case 1: cout << "Cin error, possibly send wrong data" << endl; break;

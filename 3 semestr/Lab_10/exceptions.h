@@ -5,7 +5,7 @@
 class Exceptions{
 public:
     Exceptions(int code);
-    void what_happend();
+    void what_happened();
 private:
     int code;
 };

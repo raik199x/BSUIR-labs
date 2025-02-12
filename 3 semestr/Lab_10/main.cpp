@@ -19,7 +19,7 @@ int write_num(){
     }catch(Exceptions &ex){
         cin.clear();
         cin.ignore(10000,'\n');
-        ex.what_happend();
+        ex.what_happened();
         enter_cont();
         return -148148;
     }
@@ -91,7 +91,7 @@ public:
             if(this->current_node == nullptr)
                 throw(Exceptions(11));
             } catch(Exceptions &ex){
-                ex.what_happend();
+                ex.what_happened();
                 enter_cont();
             }
 
@@ -104,7 +104,7 @@ public:
             if(this->current_node == nullptr)
                 throw(Exceptions(11));
             } catch (Exceptions &ex){
-                ex.what_happend();
+                ex.what_happened();
                 enter_cont();
             }
             this->current_node = this->current_node->right;
@@ -152,7 +152,7 @@ public:
                 this->iter_tail = Iterator(tail);
             }
         }catch(Exceptions &ex){
-            ex.what_happend();
+            ex.what_happened();
         }
     }
 
@@ -175,7 +175,7 @@ public:
         if (head == nullptr)
             throw(Exceptions(11));
         } catch(Exceptions &ex){
-            ex.what_happend();
+            ex.what_happened();
             return;
         }
 
@@ -241,7 +241,7 @@ public:
             if(cin.fail())
                 throw (Exceptions(1));
         } catch (Exceptions &ex){
-            ex.what_happend();
+            ex.what_happened();
             return;
         }
         Node *some = new  Node(data);
@@ -312,7 +312,7 @@ public:
             }
             ++iter;
         }
-        if (current_list.find(substr) != 18446744073709551615)
+        if (current_list.find(substr) != std::string::npos)
             cout << current_list << " <-  was found here" << endl;
     }
 
@@ -324,7 +324,7 @@ public:
         if(num < 1 || num > dline)
             throw(Exceptions(12));
         } catch(Exceptions &ex){
-            ex.what_happend();
+            ex.what_happened();
             return;
         }
         if (num == dline || (dline == 1 && num == 1)){
@@ -453,7 +453,7 @@ int main(){
             cout << "1. Switch auto sort tumbler" << endl << "2. Switch unique tumbler" << endl << "3. Go back" << endl << ">";
             option = write_num();
             if (option < 1 || option > 3 || cin.fail()){
-                cout << "Error occured!" << endl;
+                cout << "Error occurred!" << endl;
                         enter_cont();
             } else if (option == 1 && auto_sort == false)
                 auto_sort = true;
@@ -548,7 +548,7 @@ int main(){
                     cout << "1. Switch auto sort tumbler" << endl << "2. Switch unique tumbler" << endl << "3. Go back" << endl << ">";
                     option = write_num();
                     if (option < 1 || option > 3 || cin.fail()){
-                        cout << "Error occured!" << endl;
+                        cout << "Error occurred!" << endl;
                         enter_cont();
                     } else if (option == 1 && auto_sort == false)
                         auto_sort = true;
@@ -643,7 +643,7 @@ int main(){
                     cout << "1. Switch auto sort tumbler" << endl << "2. Switch unique tumbler" << endl << "3. Go back" << endl << ">";
                     option = write_num();
                     if (option < 1 || option > 3 || cin.fail()){
-                        cout << "Error occured!" << endl;
+                        cout << "Error occurred!" << endl;
                         enter_cont();
                     } else if (option == 1 && auto_sort == false)
                         auto_sort = true;
@@ -696,23 +696,23 @@ int main(){
         string substr;
         for (unsigned int i = 0 ; i < to_add.length(); i++){
             if (to_add[i] == ' ' || to_add[i] == '\0'){
-                bool if_int = true, if_dobule = true; int z; double x;
+                bool if_int = true, if_double = true; int z; double x;
 
                 for(unsigned j = 0; j < substr.length();j++)
                     if (substr[j] != '.' && (substr[j] < '0' || substr[j] > '9')){
                         if_int = false;
-                        if_dobule = false;
+                        if_double = false;
                     }
 
-                if (if_dobule == true){
+                if (if_double == true){
                 if(substr.find('.') != 18446744073709551615){
                 try{
                 x = stof(substr);
                 } catch(...){
-                    if_dobule = false;
+                    if_double = false;
                 }
                 } else
-                    if_dobule = false;
+                    if_double = false;
                 }
 
                 if(if_int == true){
@@ -722,7 +722,7 @@ int main(){
                     if_int = false;
                 }
                 }
-                if (if_dobule == true)
+                if (if_double == true)
                     doublie.PushBack(x);
                 else if (if_int == true)
                     the_list.PushBack(z);

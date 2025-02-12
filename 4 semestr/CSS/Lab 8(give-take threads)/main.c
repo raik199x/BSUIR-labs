@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <semaphore.h>
-#include <errno.h>
 #include <fcntl.h>
 #include <malloc.h>
 #include <unistd.h>
@@ -12,7 +11,7 @@
 #include <sys/wait.h>
 
 #include "circle.h"
-#include "../../../MyLibs/C_Lib/functions.h"
+#include "functions.h"
 
 pthread_mutex_t lock;
 long long mainThreadId = -1;

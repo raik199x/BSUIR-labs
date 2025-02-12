@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <unistd.h>
 
-#include "../../../MyLibs/C_Lib/functions.h"
+#include "functions.h"
 
 struct threadData{
     long bytes;  //how much to proccess

@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 #include <semaphore.h>
 
-#include "../../../MyLibs/C_Lib/functions.h"
+#include "functions.h"
 
 unsigned int ThreadStatusLength = 0;     //Number of threads
 unsigned long **ThreadStatus;           //for Threads to handle signals
@@ -53,7 +53,7 @@ void AllowAllData(){
 
 void ShowStatus(){
     for(int i = 0; i < ThreadStatusLength; i++)
-        printf("%d\n",ThreadStatus[i][1]);
+        printf("%ld\n",ThreadStatus[i][1]);
 }
 
 int StopThread(const long ThreadId){

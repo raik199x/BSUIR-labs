@@ -1,6 +1,6 @@
 all:
-	gcc main.c ../../../MyLibs/C_Lib/functions.c -o run -pthread
+	gcc main.c functions.c -o run -pthread
 debug:
-	gcc main.c ../../../MyLibs/C_Lib/functions.c -o run -pthread -g
+	gcc main.c functions.c -o run -pthread -g
 clear:
 	rm -rf run

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <semaphore.h>
-#include <errno.h>
 #include <fcntl.h>
 #include <malloc.h>
 #include <unistd.h>
@@ -24,18 +23,18 @@ int* UpdatePidsIncrease(int **old_pids, int count){
     return new_pids;
 }
 
-//creates new arrey of pids that lower by one than old, kills the newest pid and returns array
+//creates new array of pids that lower by one than old, kills the newest pid and returns array
 int* UpdatePidsDecrease(int **old_pids, int count){
     int* new_pids, temp;
     new_pids = (int*)malloc(count*sizeof(int));
     temp = kill((*old_pids)[count],SIGUSR1);
     if(temp != 0)
-        printf("Error killing procces! Try to exit program to prevent proccess stuck in system\n");
+        printf("Error killing proccess! Try to exit program to prevent proccess stuck in system\n");
     else{
         SetOutputColor("GREEN");
-        printf("%d - procces was killed\n", (*old_pids)[count]);
+        printf("%d - proccess was killed\n", (*old_pids)[count]);
         SetOutputColor("def");
-        wait((*old_pids)[count]);       //to avoid proccess become a zombie we ask parent to close it
+        wait(&(*old_pids)[count]);       //to avoid proccess become a zombie we ask parent to close it
     }
     for(int i = 0; i < count; i++)
         new_pids[i] = (*old_pids)[i];
@@ -122,7 +121,7 @@ int main(){
                             TakerPids = UpdatePidsIncrease(&TakerPids, CountTaker);
                             TakerPids[CountTaker-1] = temp;
                             SetOutputColor("GREEN");
-                            printf("%d - Taker procces was created\n",TakerPids[CountTaker-1]);
+                            printf("%d - Taker proccess was created\n",TakerPids[CountTaker-1]);
                             SetOutputColor("def");
                             sem_post(SemTaker);
                         }
@@ -171,14 +170,14 @@ int main(){
 
                       while(remember_shmid != BufferCircle->current_shmid){
                         printf("------------------------------------------------------\n");
-                        printf("SHMID: %d \nWas Added: %d \nWas Removed: %d\nCurrent cheksum: %d\n",BufferCircle->current_shmid,BufferCircle->added,BufferCircle->deleted,BufferCircle->checksum);
+                        printf("SHMID: %d \nWas Added: %d \nWas Removed: %d\nCurrent checksum: %llu\n",BufferCircle->current_shmid,BufferCircle->added,BufferCircle->deleted,BufferCircle->checksum);
                         next_shmid = BufferCircle->right_shmid;
 
                         shmdt(BufferCircle);
                         BufferCircle = shmat(next_shmid,NULL,0);
                       }
                         printf("------------------------------------------------------\n");
-                        printf("SHMID: %d \nWas Added: %d \nWas Removed: %d\nCurrent cheksum: %d\n",BufferCircle->current_shmid,BufferCircle->added,BufferCircle->deleted,BufferCircle->checksum);
+                        printf("SHMID: %d \nWas Added: %d \nWas Removed: %d\nCurrent checksum: %llu\n",BufferCircle->current_shmid,BufferCircle->added,BufferCircle->deleted,BufferCircle->checksum);
                         printf("------------------------------------------------------\n");
                       sem_post(SemMutex);
                       break;

@@ -5,7 +5,7 @@
 #include <time.h>
 #include <pthread.h>
 
-#include "../../../MyLibs/C_Lib/functions.h"
+#include "functions.h"
 
 //data for all threads
 int width;
